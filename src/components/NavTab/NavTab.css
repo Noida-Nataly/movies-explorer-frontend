@@ -1,0 +1,22 @@
+.promo__navtab{
+    margin: 0 auto;
+    display: flex;
+    gap: 10px;
+    justify-items: center;
+    padding-bottom: 30px;
+}
+
+.promo__navtab_link {
+    width: 96px;
+    height: 36px;
+    border-radius: 10px;
+    background: #303030;
+    color: #FFF;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px; /* 133.333% */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,0 +1,18 @@
+.root {
+  display: block;
+  min-height: 100vh;
+  font-family: 'Inter', Arial, sans-serif;
+  color:#FFF;
+  background-color: #202020;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}
+
+.container {
+  padding: 0 70px 0 70px;
+  margin: 0 auto;
+}

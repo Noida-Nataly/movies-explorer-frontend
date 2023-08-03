@@ -1,0 +1,68 @@
+.movie__card {
+    margin: 0;
+    padding: 0;
+    width: 364px;
+    max-height: 271px;
+    background-color: #222;
+    box-shadow: 0px 4px 30px 0px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+.movie__film-headers {
+    height: 68px;
+    box-sizing: border-box;
+    padding: 14px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.movie__info {
+    display: flex;
+    gap: 9px;
+    flex-direction: column;
+}
+
+.movie__image {
+    width: 100%;
+    max-height: 203px;
+    object-fit: contain;
+    display: block;
+}
+
+.movie__like-button {
+    width: 30px;
+    height: 30px;
+    border: none;
+    margin: 5px;
+    padding: 0;
+    background: rgba(49, 49, 49, 1) url("../../images/save9.svg") no-repeat center;
+}
+
+.movie__name {
+    color: #fff;
+    margin: 0;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: normal;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.movie__duration {
+    color: #8B8B8B;
+    margin: 0;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: normal;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+@media screen and (max-width: 892px) {
+    .gallery__card {
+        width: 339px;
+        height: 258px;
+    }
+}

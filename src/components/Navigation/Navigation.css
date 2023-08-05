@@ -1,0 +1,52 @@
+.navigation {
+    width: 320px;
+
+    background: #202020;
+
+}
+
+.navigation-icon {
+
+}
+.navigation-menu {
+    display: flex;
+    flex-direction: column;
+}
+.navigation__close-btn {
+    width: 22px;
+    height: 22px;
+    background: url("../../images/Close.svg") no-repeat center;
+}
+.navigation__list {
+    list-style: none;
+
+}
+.navigation__link {
+
+}
+.navigation__link-text {
+    color: #fff;
+    text-decoration: none;
+}
+.navigation__wrapper-auth {
+
+}
+.navigation__account {
+
+}
+.navigation__link-logout {
+
+}
+
+@media screen and (min-width: 770px){
+    .navigation {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 540px){
+    .navigation {
+        width: 520px;
+    }
+}
+

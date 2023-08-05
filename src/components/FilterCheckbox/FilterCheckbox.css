@@ -50,3 +50,16 @@
     transform: translateX(16px);
 }
 
+@media screen and (max-width: 769px) {
+    .filter-checkbox {
+        margin-left: 19px;
+    }
+}
+
+@media screen and (max-width: 685px) {
+    .filter-checkbox {
+        margin: 0 auto;
+        padding-bottom: 45px;
+
+    }
+}

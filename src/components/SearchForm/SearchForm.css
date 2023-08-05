@@ -55,21 +55,47 @@
     height: 34px;
     width: 80px;
     margin-right: 19px;
+    padding: 0;
     border-style: none;
     background: transparent url('../../images/find.svg') no-repeat center;
 }
 
 @media screen and (max-width: 769px) {
     .searchform {
-        padding: 80px 0 120px 0;
+        padding: 80px 0 109px 0;
     }
 
     .searchform_panel {
         grid-template-columns: auto 187px;
-        padding: 19px;
+        padding-right: 19px;
     }
 
     .searchform__filter {
         margin-left: 19px;
     }
+}
+
+@media screen and (max-width: 685px) {
+    .searchform_panel {
+        grid-template-columns: 1fr;
+    }
+
+    .searchform_indicator {
+        display: none;
+    }
+
+    .searchform__find-films{
+        border: none;
+    }
+}
+
+@media screen and (max-width: 385px) {
+    .searchform_panel {
+        padding: 0 10px 0 10px;
+    }
+
+    .searchform_name-movies {
+        width: 100%;
+    }
+
 }

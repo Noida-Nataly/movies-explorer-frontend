@@ -1,10 +1,11 @@
-import {NavLink} from "react-router-dom";
+import {HashLink} from "react-router-hash-link";
+import React from "react";
 export default function NavTab ({}) {
     return (
         <div className="promo__navtab">
-            <NavLink className="promo__navtab_link link" to="#about-project">О проекте</NavLink>
-            <NavLink className="promo__navtab_link link" to="#techs">Технологии</NavLink>
-            <NavLink className="promo__navtab_link link" to="#about-me">Студент</NavLink>
+            <HashLink className="promo__navtab_link link" to="#about-project">О проекте</HashLink>
+            <HashLink className="promo__navtab_link link" to="#techs">Технологии</HashLink>
+            <HashLink className="promo__navtab_link link" to="#about-me">Студент</HashLink>
         </div>
     )
 }

@@ -17,7 +17,7 @@ export default function Header({isLoggedIn}) {
                         <span className="header__account">Аккаунт</span>
                         <button className="header__link-logout"></button>
                     </div>
-                  <Navigation />
+                  {/*<Navigation />*/}
                 </>
                 :   <div className="header__wrapper-auth">
                         <button className="header__links-auth header__link_logup btn">Регистрация</button>

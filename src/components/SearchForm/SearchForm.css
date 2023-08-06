@@ -56,8 +56,9 @@
     width: 80px;
     margin-right: 19px;
     padding: 0;
-    border-style: none;
+    border: none;
     background: transparent url('../../images/find.svg') no-repeat center;
+    background-size: contain;
 }
 
 @media screen and (max-width: 769px) {
@@ -67,7 +68,7 @@
 
     .searchform_panel {
         grid-template-columns: auto 187px;
-        padding-right: 19px;
+        padding: 16px 29px 16px 29px;
     }
 
     .searchform__filter {
@@ -90,12 +91,25 @@
 }
 
 @media screen and (max-width: 385px) {
-    .searchform_panel {
-        padding: 0 10px 0 10px;
+    .searchform {
+        padding: 78px 0 109px 0;
     }
 
     .searchform_name-movies {
-        width: 100%;
+        max-width: 174px;
+        font-size: 14px;
     }
 
+    .searchform_panel {
+        padding: 0px 0px 0px 0px;
+    }
+
+    .searchform__find-films{
+        padding: 19px 14px;
+    }
+
+    .searchform-find-btn {
+        margin: 2px 1px 0 4px;
+        padding: 0;
+    }
 }

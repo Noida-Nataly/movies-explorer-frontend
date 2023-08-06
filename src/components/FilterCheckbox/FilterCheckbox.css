@@ -58,8 +58,6 @@
 
 @media screen and (max-width: 685px) {
     .filter-checkbox {
-        margin: 0 auto;
-        padding-bottom: 45px;
-
-    }
+        margin: 45px auto;
+   }
 }

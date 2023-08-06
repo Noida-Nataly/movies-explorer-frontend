@@ -7,9 +7,9 @@ import Movies from "../Movies/Movies";
 function App() {
   return (
     <page className="root container">
-      <Header isLoggedIn={false} />
-      <Main />
-      {/*  <Movies />*/}
+      <Header isLoggedIn={true} />
+      {/*<Main />*/}
+        <Movies />
       <Footer />
     </page>
   );

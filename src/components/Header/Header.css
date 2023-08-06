@@ -27,29 +27,6 @@
     line-height: 18px; /* 138.462% */
 }
 
-.header__wrapper-login {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: auto 0 auto 0;
-}
-
-.header__account {
-    margin-right: 17px;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 16px; /* 114.286% */
-}
-
-.header__link-logout {
-    width: 26px;
-    height: 30px;
-    padding: 8px;
-    border: none;
-    border-radius: 4px;
-    background: transparent url('../../images/icon-man.svg') no-repeat center;
-}
-
 .header__wrapper-auth {
     display: flex;
     justify-content: space-between;
@@ -84,9 +61,7 @@
     .header__nav-pages {
         display: none;
     }
-    .header__wrapper-login {
-        display: none;
-    }
+
     .header {
         padding: 18px 10px 18px 10px;
         width: calc(100% - 20px);

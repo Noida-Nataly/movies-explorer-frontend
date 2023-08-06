@@ -13,6 +13,11 @@
     letter-spacing: -0.88px;
 }
 
+.link {
+    color: #FFF;
+    text-decoration: none;
+}
+
 .link:hover {
     opacity: .4;
     transition: .4s;

@@ -1,6 +1,8 @@
 import React from "react";
 import logo from '../../images/logo.svg';
 import Navigation from "../Navigation/Navigation";
+import {Link} from "react-router-dom";
+import AccountMenu from "../AccountMenu/AccountMenu";
 
 
 export default function Header({isLoggedIn}) {
@@ -10,16 +12,13 @@ export default function Header({isLoggedIn}) {
             {isLoggedIn ?
                 <>
                     <div className="header__nav-pages">
-                        <a className="header__link-page link">Фильмы</a>
-                        <a className="header__link-page link">Сохранённые фильмы</a>
+                        <Link className="header__link-page link" to="/movies">Фильмы</Link>
+                        <Link className="header__link-page link" to="/saved-movies">Сохранённые фильмы</Link>
                     </div>
-                    <div className="header__wrapper-login">
-                        <span className="header__account">Аккаунт</span>
-                        <button className="header__link-logout"></button>
-                    </div>
-                  {/*<Navigation />*/}
+                    <AccountMenu isBurgerMenu={false} />
+                    <Navigation />
                 </>
-                :   <div className="header__wrapper-auth">
+                     :   <div className="header__wrapper-auth">
                         <button className="header__links-auth header__link_logup btn">Регистрация</button>
                         <button className="header__links-auth header__link_login btn">Войти</button>
                     </div>}

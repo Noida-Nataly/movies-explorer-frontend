@@ -37,7 +37,7 @@
 .navigation-menu {
     display: block;
     position: fixed;
-    /*visibility: hidden;*/
+    visibility: hidden;
     top: 0;
     right: 0;
     width: 320px;
@@ -48,6 +48,10 @@
     background-color: #202020;;
     transition-duration: .25s;
     z-index: 100;
+}
+
+.navigation-menu-opened {
+    visibility: visible;
 }
 
 .navigation-menu:before {

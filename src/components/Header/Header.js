@@ -20,10 +20,18 @@ export default function Header({isLoggedIn}) {
                     <AccountMenu isBurgerMenu={false} />
                     <Navigation />
                 </>
-                     :   <div className="header__wrapper-auth">
-                        <button className="header__links-auth header__link_logup btn">Регистрация</button>
-                        <button className="header__links-auth header__link_login btn">Войти</button>
-                    </div>}
+                   :
+                <>
+                    <div className="header__wrapper-auth">
+                        <button className="header__links-auth header__link_logup btn">
+                          <Link className="header__link-login_text-white" to="/signup">Регистрация</Link>
+                        </button>
+                        <button className="header__links-auth header__link_login btn">
+                          <Link className="header__link-login_text-dark" to="/signin">Войти</Link>
+                        </button>
+                    </div>
+                  <Navigation />
+                </>}
         </header>
     )
 }

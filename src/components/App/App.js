@@ -1,36 +1,52 @@
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
-import React from "react";
+import React, {useState} from "react";
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
 import {Route, Routes} from "react-router-dom";
 import SavedMovies from "../SavedMovies/SavedMovies";
+import Preloader from "../Prealoder/Preloader";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
     <page className="root container">
-      <Header isLoggedIn={true} />
       <Routes>
         <Route path='/' element={
-          <Main />
+          <>
+            <Header isLoggedIn={isLoggedIn} />
+            <Main />
+            <Footer />
+          </>
         }/>
         <Route path='/movies' element={
-          <Movies />
+          <>
+            <Header isLoggedIn={isLoggedIn} />
+            <Movies />
+            <Footer />
+          </>
         }/>
         <Route path='/saved-movies' element={
-          <SavedMovies />
+          <>
+            <Header isLoggedIn={isLoggedIn} />
+            <SavedMovies />
+            <Footer />
+          </>
         }/>
         <Route path='/profile' element={
-          <SavedMovies />
+          <Header />
+          // <Profile />
         }/>
         <Route path='/signin' element={
-          <SavedMovies />
+          <Header />
+          // <Login />
         }/>
         <Route path='/signup' element={
-          <SavedMovies />
+          <Header />
+          // <Register />
         }/>
       </Routes>
-      <Footer />
     </page>
   );
 }

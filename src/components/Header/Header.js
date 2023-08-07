@@ -8,7 +8,9 @@ import AccountMenu from "../AccountMenu/AccountMenu";
 export default function Header({isLoggedIn}) {
     return (
         <header className="header">
+          <Link className="header__logo-link" to="/">
             <img className="header__logo" src={logo} alt='Логотип сервиса'/>
+          </Link>
             {isLoggedIn ?
                 <>
                     <div className="header__nav-pages">

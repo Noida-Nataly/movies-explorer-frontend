@@ -13,6 +13,12 @@
     margin: auto 0;
 }
 
+.header__logo-link {
+    width: 38px;
+    height: 38px;
+    margin: auto 0;
+}
+
 .header__nav-pages {
     display:  flex;
     gap: 16px;

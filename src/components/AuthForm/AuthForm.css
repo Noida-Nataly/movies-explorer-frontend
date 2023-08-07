@@ -1,4 +1,4 @@
-.header__logup {
+.header-auth {
     width: 396px;
     padding: 70px 0 0 0;
 }
@@ -9,8 +9,7 @@
     margin: auto 0;
 }
 
-
-.register__form {
+.auth__form {
     width: 396px;
     margin: 40px auto;
     color: #FFF;
@@ -19,14 +18,14 @@
     line-height: 16.8px;
 }
 
-.register__form-title {
+.auth__form-title {
     font-size: 24px;
     font-weight: 500;
     line-height: 28.8px;
     margin: 0;
 }
 
-.register__fieldset {
+.auth__fieldset {
     border: none;
     display: flex;
     flex-direction: column;
@@ -34,11 +33,11 @@
     padding: 0;
 }
 
-.register__fieldset:first-of-type {
+.auth__fieldset:first-of-type {
     margin-top: 40px;
 }
 
-.register__label {
+.auth__label {
     color: #8B8B8B;
     font-size: 10px;
     font-weight: 400;
@@ -46,19 +45,19 @@
     padding: 0;
 }
 
-.register__input {
+.auth__input {
     background-color: initial;
     border: none;
     outline: none;
     border-bottom: 1px solid #424242;
     padding: 5px 0 10px 0;
 }
-.register__input:active,
-.register__input:focus {
+.auth__input:active,
+.auth__input:focus {
     border-color: #4285F4;
 }
 
-.register__logup-btn {
+.auth__logup-btn {
     width: 396px;
     height: 45px;
     border: none;
@@ -70,7 +69,7 @@
     font-weight: 500;
 }
 
-.register__on-entrance {
+.auth__on-entrance {
     border: none;
     display: flex;
     justify-content: center;
@@ -78,13 +77,13 @@
     padding: 0 0 70px 0;
 }
 
-.register__link {
+.auth__link {
     color: #4285F4;
     text-align: center;
     text-decoration-line: none;
 }
 
-.register__span {
+.auth__span {
     color: #8B8B8B;
     text-align: center;
     padding-right: 6px;
@@ -104,28 +103,28 @@
         justify-content: center;
     }
 
-    .register__form {
+    .auth__form {
         max-width: 260px;
         margin: 50px auto 30px auto;
     }
 
-    .register__form-title {
+    .auth__form-title {
         display: flex;
         justify-content: center;
     }
 
-    .register__fieldset:first-of-type {
+    .auth__fieldset:first-of-type {
         margin-top: 80px;
     }
 
-    .register__logup-btn {
+    .auth__logup-btn {
         max-width: 260px;
         margin: 243px 0 14px 0;
         font-size: 12px;
         line-height: 14.4px;
     }
 
-    .register__span {
+    .auth__span {
         font-size: 12px;
         line-height: 14.4px;
         padding-right: 7px;

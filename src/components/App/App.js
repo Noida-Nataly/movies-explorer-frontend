@@ -6,6 +6,8 @@ import Movies from "../Movies/Movies";
 import {Route, Routes} from "react-router-dom";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import Preloader from "../Prealoder/Preloader";
+import Register from "../Register/Register";
+import Login from "../Login/Login";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -39,12 +41,10 @@ function App() {
           // <Profile />
         }/>
         <Route path='/signin' element={
-          <Header />
-          // <Login />
+          <Login />
         }/>
         <Route path='/signup' element={
-          <Header />
-          // <Register />
+          <Register />
         }/>
       </Routes>
     </page>

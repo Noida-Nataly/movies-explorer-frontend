@@ -1,17 +1,20 @@
-export default function MovieCard ({MovieShot, name, duration}) {
+export default function MovieCard ({MovieShot, name, duration, isSaved, isSavedMovies}) {
+  const saveClassName = `movies__save-button ${
+    isSaved ? 'movies__save-button_state-active' : ''} ${
+    isSavedMovies ? 'movies__save-button_state-picked' : ''}`
     return (
-        <li className="movie__card">
-            <div className="movie__film-headers">
-                <div className="movie__info">
-                     <h2 className="movie__name">{name}</h2>
-                     <h3 className="movie__duration">{duration}</h3>
+        <li className="movies__card">
+            <div className="movies__film-headers">
+                <div className="movies__info">
+                     <h2 className="movies__name">{name}</h2>
+                     <h3 className="movies__duration">{duration}</h3>
                 </div>
-            <button className="movie__like-button"
+            <button className={saveClassName}
                 type="button"
                 aria-label="Отметить избранное">
             </button>
             </div>
-            <img src={MovieShot} alt={name} className="movie__image" />
+            <img src={MovieShot} alt={name} className="movies__image" />
         </li>
     )
 }

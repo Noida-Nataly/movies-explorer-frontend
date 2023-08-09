@@ -18,19 +18,19 @@ export default function Header({isLoggedIn}) {
                         <Link className="header__link-page link" to="/saved-movies">Сохранённые фильмы</Link>
                     </div>
                     <AccountMenu isBurgerMenu={false} />
-                    <Navigation />
+                    <Navigation isLoggedIn={isLoggedIn} />
                 </>
                    :
                 <>
                     <div className="header__wrapper-auth">
-                        <button className="header__links-auth header__link_logup btn">
-                          <Link className="header__link-login_text-white" to="/signup">Регистрация</Link>
+                        <button className="header__links-auth header__link-logup btn">
+                          <Link className="header__link header__link_text-white" to="/signup">Регистрация</Link>
                         </button>
-                        <button className="header__links-auth header__link_login btn">
-                          <Link className="header__link-login_text-dark" to="/signin">Войти</Link>
+                        <button className="header__links-auth header__link-login btn">
+                          <Link className="header__link header__link_text-dark" to="/signin">Войти</Link>
                         </button>
                     </div>
-                  <Navigation />
+                  <Navigation isLoggedIn={isLoggedIn} />
                 </>}
         </header>
     )

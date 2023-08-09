@@ -4,13 +4,13 @@ import Magnifier from "../../images/magnifier.svg";
 export default function SearchForm ({}) {
     return (
         <form id="searchform" className="searchform">
-        <div className="searchform_panel">
+        <div className="searchform__panel">
             <label className="searchform__find-films">
-                <img className="searchform_indicator" alt='Значок лупы' src={Magnifier} />
-                    <input id="searchform_name-movies"
-                           className="searchform_name-movies"
+                <img className="searchform__indicator" alt='Значок лупы' src={Magnifier} />
+                    <input id="searchform__name-movies"
+                           className="searchform__name-movies"
                            placeholder="Фильм" />
-                        <button className="searchform-find-btn"></button>
+                        <button className="searchform__find-btn"></button>
             </label>
             <FilterCheckbox />
         </div>

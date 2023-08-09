@@ -1,80 +1,32 @@
 import MovieCard from "../MovieCard/MovieCard";
-import MovieShot from '../../images/pain _1.jpg';
-export default function MovieCardList ({movies}) {
+export default function MovieCardList ({movies, isSavedMovies}) {
+  movies=[];
   return (
-    <section className="movie-cards">
-      <ul className="movie-cards__list">
-        {movies.map((movie) => (
-          <MovieCard
+    <section className="movies">
+      {(movies.length > 0) ?
+        (<>
+        <ul className="movies__list">
+          {
+          movies.map((movie) => (
+            <MovieCard
             name={movie.name}
             duration={movie.duration}
             MovieShot={movie.shot}
-          />
-        ))}
-        <MovieCard
-          name={'Карачаевск'}
-          duration={'1x47v'}
-          MovieShot={MovieShot}
-        />
-        <MovieCard
-          name={'Карачаевск'}
-          duration={'1x47v'}
-          MovieShot={MovieShot}
-        />
-        <MovieCard
-          name={'Карачаевск'}
-          duration={'1x47v'}
-          MovieShot={MovieShot}
-        />
-        <MovieCard
-          name={'Карачаевск'}
-          duration={'1x47v'}
-          MovieShot={MovieShot}
-        />
-        <MovieCard
-          name={'Карачаевск'}
-          duration={'1x47v'}
-          MovieShot={MovieShot}
-        />
-        <MovieCard
-          name={'Карачаевск'}
-          duration={'1x47v'}
-          MovieShot={MovieShot}
-        />
-        <MovieCard
-          name={'Карачаевск'}
-          duration={'1x47v'}
-          MovieShot={MovieShot}
-        />
-        <MovieCard
-          name={'Карачаевск'}
-          duration={'1x47v'}
-          MovieShot={MovieShot}
-        />
-        <MovieCard
-          name={'Карачаевск'}
-          duration={'1x47v'}
-          MovieShot={MovieShot}
-        />
-        <MovieCard
-          name={'Карачаевск'}
-          duration={'1x47v'}
-          MovieShot={MovieShot}
-        />
-        <MovieCard
-          name={'Карачаевск'}
-          duration={'1x47v'}
-          MovieShot={MovieShot}
-        />
-        <MovieCard
-          name={'Карачаевск'}
-          duration={'1x47v'}
-          MovieShot={MovieShot}
-        />
-      </ul>
-      <div className="movie-cards__allcards">
-        <button className="movie-cards__allcards_btn">Ещё</button>
-      </div>
+            isSaved={movie.isSaved}
+            isSavedMovies={isSavedMovies}
+            />
+            )
+          )}
+        </ul>
+        <div className="movies__allcards">
+          <button className="movies__allcards-btn">Ещё</button>
+        </div>
+      </>
+        ) : (<div className="movies__no-data">
+          Здесь пока нет сохраненных фильмов </div> )
+      }
+
     </section>
   )
 }
+

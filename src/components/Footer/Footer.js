@@ -8,12 +8,12 @@ export default function Footer ({}) {
         <div className="footer__wrapper">
             <p className="footer__copyright footer__text">&copy; 2023</p>
             <ul className="footer__list">
-                <li className="footer__list_item">
+                <li className="footer__list-item">
                     <Link className="footer__link link" to="https://practicum.yandex.ru/">
                         Яндекс.Практикум
                     </Link>
                 </li>
-                <li className="footer__list_item">
+                <li className="footer__list-item">
                     <Link className="footer__link link" to="https://github.com/Noida-Nataly">
                           Github
                     </Link>

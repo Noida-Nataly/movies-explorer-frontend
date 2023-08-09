@@ -10,31 +10,31 @@ export default function AuthForm ({isLogin}) {
           <img className="header__logo" src={logo} alt='Логотип сервиса'/>
         </Link>
       </header>
-      <form name="auth__form" className="auth__form">
-        <h2 className="auth__form-title">
+      <form name="auth-form" className="auth-form">
+        <h2 className="auth-form__title">
           {isLogin ? "Рады видеть!" : "Добро пожаловать!"}
         </h2>
         {!isLogin &&
-          <fieldset className="auth__fieldset">
-            <label className="auth__label">Имя</label>
-            <input name="auth-name" className="auth__input " type="text"/>
+          <fieldset className="auth-form__fieldset">
+            <label className="auth-form__label">Имя</label>
+            <input name="auth-name" className="auth-form__input " type="text"/>
           </fieldset>}
-        <fieldset className="auth__fieldset">
-          <label className="auth__label">E-mail</label>
-          <input name="auth-email" className="auth__input" type="email"/>
+        <fieldset className="auth-form__fieldset">
+          <label className="auth-form__label">E-mail</label>
+          <input name="auth-email" className="auth-form__input" type="email"/>
         </fieldset>
-        <fieldset className="auth__fieldset">
-          <label className="auth__label">Password</label>
-          <input name="auth__password" className="auth__input" type="password"/>
+        <fieldset className="auth-form__fieldset">
+          <label className="auth-form__label">Password</label>
+          <input name="auth__password" className="auth-form__input" type="password"/>
         </fieldset>
-        <button className="auth__logup-btn" type="submit">
+        <button className="auth-form__logup-btn" type="submit">
           {isLogin ? "Войти" : "Зарегистрироваться"}
         </button>
-        <fieldset className="auth__on-entrance">
-          <span className="auth__span">
+        <fieldset className="auth-form__on-entrance">
+          <span className="auth-form__span">
             {isLogin ? "Ещё не зарегистрированы?" : "Уже зарегистрировались?"}
           </span>
-          <Link className="auth__link" to={isLogin ? "/signup" : "/signin"}>
+          <Link className="auth-form__link" to={isLogin ? "/signup" : "/signin"}>
             {isLogin ? "Регистрация" : "Войти"}
           </Link>
         </fieldset>

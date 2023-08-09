@@ -10,6 +10,7 @@ export default function SavedMovies ({}) {
       <SearchForm />
       <MovieCardList
         movies={savedMovies}
+        isSavedMovies={true}
       />
     </>
   )

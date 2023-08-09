@@ -10,7 +10,7 @@
     border-bottom: 1px solid #424242;
 }
 
-.searchform_panel {
+.searchform__panel {
     max-width: 1140px;
     width: 100%;
     box-sizing: border-box;
@@ -33,13 +33,13 @@
     padding: 3px 0 3px 0;
 }
 
-.searchform_indicator {
+.searchform__indicator {
     width: 34px;
     height: 34px;
     margin-right: 10px;
 }
 
-.searchform_name-movies {
+.searchform__name-movies {
     background-color: transparent;
     border-style: none;
     color: #8B8B8B;
@@ -51,7 +51,7 @@
     padding: 0;
 }
 
-.searchform-find-btn {
+.searchform__find-btn {
     height: 34px;
     width: 80px;
     margin-right: 19px;
@@ -66,7 +66,7 @@
         padding: 80px 0 109px 0;
     }
 
-    .searchform_panel {
+    .searchform__panel {
         grid-template-columns: auto 187px;
         padding: 16px 29px 16px 29px;
     }
@@ -77,11 +77,11 @@
 }
 
 @media screen and (max-width: 685px) {
-    .searchform_panel {
+    .searchform__panel {
         grid-template-columns: 1fr;
     }
 
-    .searchform_indicator {
+    .searchform__indicator {
         display: none;
     }
 
@@ -95,12 +95,12 @@
         padding: 78px 0 109px 0;
     }
 
-    .searchform_name-movies {
+    .searchform__name-movies {
         max-width: 174px;
         font-size: 14px;
     }
 
-    .searchform_panel {
+    .searchform__panel {
         padding: 0px 0px 0px 0px;
     }
 
@@ -108,7 +108,7 @@
         padding: 19px 14px;
     }
 
-    .searchform-find-btn {
+    .searchform__find-btn {
         margin: 2px 1px 0 4px;
         padding: 0;
     }

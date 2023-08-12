@@ -5,6 +5,8 @@
     padding: 18px 0 18px 0;
     display: flex;
     justify-content: space-between;
+    /*from example of sticky footer*/
+    flex: 0 0 auto;
 }
 
 .header__logo {
@@ -21,6 +23,18 @@
 
 .header__nav-pages {
     display:  flex;
+    margin: 0 auto;
+    padding-left: 60px;
+}
+
+.header__nav-pages_list {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
     gap: 16px;
     align-items: center;
 }

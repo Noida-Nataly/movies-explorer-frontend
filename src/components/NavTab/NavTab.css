@@ -1,9 +1,16 @@
-.navtab{
+.navtab {
     margin: 0 auto;
     display: flex;
+    padding-bottom: 30px;
+}
+
+.navtab__list {
+    list-style: none;
+    display: flex;
+    margin: 0 auto;
+    padding: 0;
     gap: 10px;
     justify-items: center;
-    padding-bottom: 30px;
 }
 
 .navtab__link {

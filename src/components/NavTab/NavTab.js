@@ -2,10 +2,18 @@ import {HashLink} from "react-router-hash-link";
 import React from "react";
 export default function NavTab ({}) {
     return (
-        <div className="navtab">
-            <HashLink className="navtab__link link" to="#about-project">О проекте</HashLink>
-            <HashLink className="navtab__link link" to="#techs">Технологии</HashLink>
-            <HashLink className="navtab__link link" to="#about-me">Студент</HashLink>
-        </div>
+        <nav className="navtab">
+          <ul className="navtab__list">
+            <li className="navtab__item">
+              <HashLink className="navtab__link link" to="#about-project">О проекте</HashLink>
+            </li>
+            <li className="navtab__item">
+              <HashLink className="navtab__link link" to="#techs">Технологии</HashLink>
+            </li>
+            <li className="navtab__item">
+              <HashLink className="navtab__link link" to="#about-me">Студент</HashLink>
+            </li>
+          </ul>
+        </nav>
     )
 }

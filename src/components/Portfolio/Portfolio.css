@@ -1,6 +1,7 @@
 .portfolio{
     padding: 0 0 106px 0;
     max-width: 1140px;
+    width: 100%;
     margin: 0 auto;
 }
 
@@ -38,8 +39,7 @@
 }
 
 .portfolio__link-name {
-    text-decoration: none;
-    color: #FFF;
+    display: flex;
     font-size: 30px;
     font-weight: 400;
     line-height: 50px; /* 166.667% */

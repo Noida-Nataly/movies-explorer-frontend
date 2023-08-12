@@ -51,6 +51,7 @@
     outline: none;
     border-bottom: 1px solid #424242;
     padding: 5px 0 10px 0;
+    color: white;
 }
 
 .auth-form__input:active,
@@ -58,7 +59,11 @@
     border-color: #4285F4;
 }
 
-.auth-form__logup-btn {
+.auth-form__input_red {
+    color: #EE3465;
+}
+
+.auth-form__btn {
     width: 396px;
     height: 45px;
     border: none;
@@ -66,8 +71,13 @@
     background: #4285F4;
     margin: 152px 0 16px 0 ;
     padding: 0;
+    color: white;
     text-align: center;
     font-weight: 500;
+}
+
+.auth-form__btn_margin-extra {
+    margin-top: 222px;
 }
 
 .auth-form__on-entrance {
@@ -77,6 +87,8 @@
     margin: 0 auto;
     padding: 0 0 70px 0;
 }
+
+
 
 .auth-form__link {
     color: #4285F4;
@@ -91,13 +103,13 @@
 }
 
 @media screen and (max-width: 769px) {
-    .header__logup {
+    .header-auth {
         padding-top: 232px;
     }
 }
 
 @media screen and (max-width: 455px) {
-    .header__logup {
+    .header-auth {
         padding-top: 56px;
         max-width: 260px;
         display: flex;
@@ -118,11 +130,15 @@
         margin-top: 80px;
     }
 
-    .auth-form__logup-btn {
+    .auth-form__btn {
         max-width: 260px;
         margin: 243px 0 14px 0;
         font-size: 12px;
         line-height: 14.4px;
+    }
+
+    .auth-form__btn_margin-extra {
+        margin-top: 311px;
     }
 
     .auth-form__span {

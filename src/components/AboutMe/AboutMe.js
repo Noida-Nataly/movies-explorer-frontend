@@ -14,7 +14,7 @@ export default function AboutMe ({}) {
                         Недавно начал кодить. С 2015 года работал в компании «СКБ Контур».
                         После того, как прошёл курс по веб-разработке,
                         начал заниматься фриланс-заказами и ушёл с постоянной работы.</p>
-                    <Link className="about-me__link link" to="https://github.com/Noida-Nataly" >GitHub</Link>
+                    <Link className="about-me__link link"  target = "_blank" to="https://github.com/Noida-Nataly" >GitHub</Link>
                 </div>
                 <img className="about-me__avatar"
                      src={Portret}

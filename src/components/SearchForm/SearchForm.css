@@ -31,6 +31,7 @@
     justify-content: space-between;
     border-right: 1px solid #505050;
     padding: 3px 0 3px 0;
+
 }
 
 .searchform__indicator {
@@ -49,6 +50,14 @@
     line-height: 20px; /* 111.111% */
     flex-grow: 1;
     padding: 0;
+    outline: none;
+}
+
+.searchform__name-movies:focus,
+.searchform__name-movies:hover {
+    cursor: pointer;
+    transition: .4s;
+    background-color: #272727;
 }
 
 .searchform__find-btn {

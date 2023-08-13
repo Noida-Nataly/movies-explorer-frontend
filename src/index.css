@@ -20,3 +20,7 @@
 @import url(./components/AuthForm/AuthForm.css);
 @import url(./components/Profile/Profile.css);
 @import url(./components/NotFound/NotFound.css);
+
+
+/*для проверки*/
+/** { outline: 1px solid red; }*/

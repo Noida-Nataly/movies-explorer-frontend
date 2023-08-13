@@ -16,13 +16,14 @@
     padding: 70px 0 110px 0;
     margin: 0;
     list-style: none;
+    gap: 40px;
 }
 
 .about-project__info {
     display: flex;
     flex-direction: column;
     width: calc((100vw - 40px)/2 - 70px );
-    padding-right: 40px;
+
 }
 
 .about-project__info:last-child {
@@ -92,22 +93,24 @@
 
 @media screen and (max-width: 892px) {
     .about-project__info {
-        width: calc((100vw - 40px) / 2 - 20px);
+        width: calc((100vw - 2* 50px) / 2 - 30px);
     }
 }
 
 @media screen and (max-width: 769px) {
     .about-project {
         margin: 0 auto;
-        padding: 0 20px 70px 30px;
+        padding: 0 30px 70px 30px;
     }
+
     .about-project__title {
         padding-top: 90px;
     }
 
     .about-project__info {
-        width: calc((100vw - 40px) / 2 - 20px);
-        padding-right: 30px;
+        width: calc((100vw - 50px) / 2 - 40px);
+        /*padding-right: 30px;*/
+        /*box-sizing: border-box;*/
     }
 
     .about-project__text {
@@ -118,6 +121,7 @@
 
     .about-project__wrapper {
         padding-bottom: 93px;
+        gap: 30px;
     }
 }
 
@@ -125,6 +129,7 @@
     .about-project__wrapper {
         flex-direction: column;
         padding: 60px 0;
+        gap: 0;
     }
 
     .about-project__info {

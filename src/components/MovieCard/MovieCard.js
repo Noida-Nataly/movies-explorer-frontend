@@ -1,9 +1,9 @@
 export default function MovieCard ({MovieShot, name, duration, isSaved, isSavedMovies}) {
-  const saveClassName = `movies__save-button ${
+  const saveClassName = `movies__save-button button ${
     isSaved ? 'movies__save-button_state-active button' : ''} ${
     isSavedMovies ? 'movies__save-button_state-picked button' : ''}`
     return (
-      <main>
+      <>
         <li className="movies__card">
             <div className="movies__film-headers">
                 <div className="movies__info">
@@ -17,6 +17,6 @@ export default function MovieCard ({MovieShot, name, duration, isSaved, isSavedM
             </div>
             <img src={MovieShot} alt={name} className="movies__image" />
         </li>
-      </main>
+      </>
     )
 }

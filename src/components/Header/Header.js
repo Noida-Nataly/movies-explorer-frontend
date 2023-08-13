@@ -14,11 +14,11 @@ export default function Header({isLoggedIn}) {
             {isLoggedIn ?
                 <>
                     <nav className="header__nav-pages">
-                      <ul className="header__nav-pages_list">
-                        <li className="header__nav-pages_item">
+                      <ul className="header__list">
+                        <li className="header__item">
                           <Link className="header__link-page link" to="/movies">Фильмы</Link>
                         </li>
-                        <li className="header__nav-pages_item">
+                        <li className="header__item">
                           <Link className="header__link-page link" to="/saved-movies">Сохранённые фильмы</Link>
                         </li>
                       </ul>
@@ -29,10 +29,10 @@ export default function Header({isLoggedIn}) {
                    :
                 <>
                     <nav className="header__wrapper-auth">
-                        <button className="header__links-auth header__link-logup btn">
+                        <button className="header__links-auth header__link-logup btn" type="button">
                           <Link className="header__link header__link_text-white" to="/signup">Регистрация</Link>
                         </button>
-                        <button className="header__links-auth header__link-login btn">
+                        <button className="header__links-auth header__link-login btn" type="button">
                           <Link className="header__link header__link_text-dark" to="/signin">Войти</Link>
                         </button>
                     </nav>

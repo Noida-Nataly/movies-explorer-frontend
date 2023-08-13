@@ -6,7 +6,7 @@ import {savedMovies} from "../../utils/movies_data";
 export default function SavedMovies ({}) {
 
   return (
-    <main>
+    <main className="content">
       <SearchForm />
       <MovieCardList
         movies={savedMovies}

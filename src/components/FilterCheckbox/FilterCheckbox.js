@@ -4,7 +4,7 @@ export default function FilterCheckbox ({}) {
             <input
                 className="filter-checkbox__toggle"
                 type="checkbox"
-                checked/>
+                defaultChecked/>
             <span className="filter-checkbox__toggle-span button"></span>
             Короткометражки
         </label>

@@ -35,6 +35,10 @@
     line-height: 14.4px;
 }
 
+.movies__grand-margin {
+    height: 140px;
+}
+
 .movies__no-data {
     display: flex;
     justify-content: center;

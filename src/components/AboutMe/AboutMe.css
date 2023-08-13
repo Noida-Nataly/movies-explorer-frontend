@@ -66,6 +66,7 @@
 @media screen and (max-width: 769px) {
     .about-me {
         padding: 90px 30px 90px 30px;
+        box-sizing: border-box;
     }
 
     .about-me__name {

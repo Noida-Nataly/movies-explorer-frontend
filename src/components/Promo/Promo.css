@@ -1,9 +1,7 @@
 .promo {
-    /*margin: 20px auto 0 auto;*/
-    /*width: 100%;*/
+    margin: 20px auto 0 auto;
+    width: 100%;
     max-width: 1200px;
-    margin: 20px -30px 0 -30px ;
-    /*margin-top: 20px;*/
     border-radius: 10px;
     background: #272727;
     display: flex;

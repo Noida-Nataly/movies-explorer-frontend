@@ -19,17 +19,45 @@ export default function AuthForm ({isLogin}) {
             {!isLogin &&
               <fieldset className="auth-form__fieldset">
                 <label className="auth-form__label">Имя</label>
-                <input name="auth-name" className="auth-form__input " type="text"/>
+                <input
+                  name="auth-name"
+                  className="auth-form__input input"
+                  type="text"
+                  minLength='5'
+                  maxLength='100'
+                  required
+                  placeholder='имя'
+                />
               </fieldset>}
             <fieldset className="auth-form__fieldset">
               <label className="auth-form__label">E-mail</label>
-              <input name="auth-email" className="auth-form__input" type="email"/>
+              <input
+                name="auth-email"
+                className="auth-form__input input"
+                type="email"
+                minLength="5"
+                maxLength="100"
+                required
+                placeholder="e-mail"
+              />
             </fieldset>
             <fieldset className="auth-form__fieldset">
               <label className="auth-form__label">Password</label>
-              <input name="auth__password" className="auth-form__input auth-form__input_red" type="password"/>
+              <input
+                name="auth__password"
+                className="auth-form__input input auth-form__input_red"
+                type="password"
+                minLength='8'
+                maxLength='20'
+                required
+                placeholder="password"
+                autoComplete="true"
+              />
             </fieldset>
-            <button className= {isLogin ? "auth-form__btn auth-form__btn_margin-extra button" : "auth-form__btn button" }type="submit">
+            <button
+              className= {isLogin ? "auth-form__btn auth-form__btn_margin-extra button"
+                : "auth-form__btn button" }
+                    type="submit">
               {isLogin ? "Войти" : "Зарегистрироваться"}
             </button>
             <fieldset className="auth-form__on-entrance">

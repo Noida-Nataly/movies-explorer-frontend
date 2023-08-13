@@ -1,24 +1,25 @@
 .account-menu {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    /*align-items: center;*/
     margin: auto 0 auto 0;
 }
 
-.account-menu__account {
-    margin-right: 17px;
+.account-menu__wrapper {
+    margin-right: 8px;
     font-size: 14px;
     font-weight: 500;
     line-height: 16px; /* 114.286% */
 }
 
-.account-menu__link-logout {
+.account-menu__wrapper:after {
+    content: url('../../images/icon-man.svg');
     width: 26px;
     height: 30px;
-    padding: 8px;
+    padding-left: 17px;
     border: none;
     border-radius: 4px;
-    background: transparent url('../../images/icon-man.svg') no-repeat center;
+    /*background: transparent url('../../images/icon-man.svg') no-repeat center;*/
 }
 
 @media screen and (max-width: 769px) {
@@ -30,5 +31,7 @@
         display: flex;
         width: 100px;
         margin: 0 auto;
+        padding-top: 10px;
+        padding-left: 5px;
     }
 }

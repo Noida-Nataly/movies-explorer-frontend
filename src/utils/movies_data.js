@@ -13,72 +13,84 @@ import movie12 from "../images/movie12.png";
 
 export const movies = [
   {
+    id: 1,
     name: '33 слова о дизайне',
     duration: '1ч 47м',
     shot: movie1,
     isSaved: false
   },
   {
+    id: 2,
     name: '33 слова о дизайне',
     duration: '1ч 47м',
     shot: movie2,
     isSaved: false
   },
   {
+    id: 3,
     name: '33 слова о дизайне',
     duration: '1ч 47м',
     shot: movie3,
     isSaved: true
   },
   {
+    id: 4,
     name: '33 слова о дизайне',
     duration: '1ч 47м',
     shot: movie4,
     isSaved: false
   },
   {
+    id: 5,
     name: '33 слова о дизайне',
     duration: '1ч 47м',
     shot: movie5,
     isSaved: true
   },
   {
+    id: 6,
     name: '33 слова о дизайне',
     duration: '1ч 47м',
     shot: movie6,
     isSaved: false
   },
   {
+    id: 7,
     name: '33 слова о дизайне',
     duration: '1ч 47м',
     shot: movie7,
     isSaved: false
   },
   {
+    id: 8,
     name: '33 слова о дизайне',
     duration: '1ч 47м',
     shot: movie8,
     isSaved: false
   },
   {
+    id: 9,
     name: '33 слова о дизайне',
     duration: '1ч 47м',
     shot: movie9,
     isSaved: false
   },
   {
+    id: 10,
     name: '33 слова о дизайне',
     duration: '1ч 47м',
     shot: movie10,
     isSaved: true
   },
   {
+    id: 11,
     name: '33 слова о дизайне',
     duration: '1ч 47м',
     shot: movie11,
     isSaved: false
   },
   {
+    id: 12,
     name: '33 слова о дизайне',
     duration: '1ч 47м',
     shot: movie12,
@@ -88,18 +100,21 @@ export const movies = [
 
 export const savedMovies = [
   {
+    id: 1,
     name: '33 слова о дизайне',
     duration: '1ч 47м',
     shot: movie1,
     isSaved: false
   },
   {
+    id: 2,
     name: '33 слова о дизайне',
     duration: '1ч 47м',
     shot: movie2,
     isSaved: false
   },
   {
+    id: 3,
     name: '33 слова о дизайне',
     duration: '1ч 47м',
     shot: movie3,

@@ -46,6 +46,15 @@
     line-height: 13.2px;
     background-color: transparent;
     border: none;
+    outline: none;
+}
+
+.profile-form__input:hover,
+.profile-form__input:focus,
+.profile-form__input:active {
+    cursor: pointer;
+    transition: .4s;
+    background-color: #272727;
 }
 
 .profile-form__error {
@@ -65,7 +74,7 @@
     padding: 0;
 }
 
-.profile-form__logout-btn {
+.profile-form__logout-link {
     color: #EE3465;
     font-weight: 500;
     margin-bottom: 70px;

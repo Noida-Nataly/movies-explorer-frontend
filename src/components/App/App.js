@@ -16,7 +16,7 @@ function App() {
   const [user, setUser] = useState({name:'Виталий', email:'email@email'});
 
   return (
-    <page className="root container">
+    <div className="root container">
       <Routes>
         <Route path='/' element={
           <>
@@ -61,7 +61,7 @@ function App() {
         }/>
         <Route path='*' element={<NotFound />} />
       </Routes>
-    </page>
+    </div>
   );
 }
 

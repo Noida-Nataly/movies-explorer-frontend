@@ -1,0 +1,124 @@
+.searchform {
+    width: 100%;
+    max-width: 1140px;
+    background-color: #202020;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 70px 0;
+    margin: 0 auto;
+    border-bottom: 1px solid #424242;
+}
+
+.searchform__panel {
+    max-width: 1140px;
+    width: 100%;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: auto 197px;
+    height: 72px;
+    justify-content: stretch;
+    border-radius: 9px;
+    background: #222;
+    box-shadow: 0px 3px 14px 0px rgba(0, 0, 0, 0.08);
+    padding: 16px 30px 16px 19px;
+}
+
+.searchform__find-films{
+    border: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-right: 1px solid #505050;
+    padding: 3px 0 3px 0;
+
+}
+
+.searchform__indicator {
+    width: 34px;
+    height: 34px;
+    margin-right: 10px;
+}
+
+.searchform__name-movies {
+    background-color: transparent;
+    border-style: none;
+    color: #8B8B8B;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 20px; /* 111.111% */
+    flex-grow: 1;
+    padding: 0;
+    outline: none;
+}
+
+.searchform__name-movies:focus,
+.searchform__name-movies:hover {
+    cursor: pointer;
+    transition: .4s;
+    background-color: #272727;
+}
+
+.searchform__find-btn {
+    height: 34px;
+    width: 80px;
+    margin-right: 19px;
+    padding: 0;
+    border: none;
+    background: transparent url('../../images/find.svg') no-repeat center;
+    background-size: contain;
+}
+
+@media screen and (max-width: 769px) {
+    .searchform {
+        padding: 80px 0 109px 0;
+    }
+
+    .searchform__panel {
+        grid-template-columns: auto 187px;
+        padding: 16px 29px 16px 29px;
+    }
+
+    .searchform__filter {
+        margin-left: 19px;
+    }
+}
+
+@media screen and (max-width: 685px) {
+    .searchform__panel {
+        grid-template-columns: 1fr;
+    }
+
+    .searchform__indicator {
+        display: none;
+    }
+
+    .searchform__find-films{
+        border: none;
+    }
+}
+
+@media screen and (max-width: 385px) {
+    .searchform {
+        padding: 78px 0 109px 0;
+    }
+
+    .searchform__name-movies {
+        max-width: 174px;
+        font-size: 14px;
+    }
+
+    .searchform__panel {
+        padding: 0px 0px 0px 0px;
+    }
+
+    .searchform__find-films{
+        padding: 19px 14px;
+    }
+
+    .searchform__find-btn {
+        margin: 2px 1px 0 4px;
+        padding: 0;
+    }
+}

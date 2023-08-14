@@ -1,0 +1,145 @@
+.navigation {
+    display: flex;
+    width: 320px;
+}
+
+.navigation__icon {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 25px;
+    right: 22px;
+    width: 22px;
+    height: 26px;
+    cursor: pointer;
+}
+
+.navigation__span,
+.navigation__span:before,
+.navigation__span:after {
+    background-color: #fff;
+    position: absolute;
+    width: 100%;
+    height: 2px;
+}
+
+.navigation__span:before {
+    top: -10px;
+    content: '';
+}
+
+.navigation__span:after {
+    bottom: -10px;
+    content: '';
+}
+
+.navigation__overlay {
+    visibility: hidden;
+    position: relative;
+    transition-duration: .25s;
+}
+
+.navigation__menu {
+    display: block;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 320px;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background-color: #202020;
+    transition-duration: .25s;
+    z-index: 100;
+}
+
+.navigation__menu-opened {
+    visibility: visible;
+    z-index: 10;
+}
+
+.navigation__overlay::before {
+    content: "";
+    position: fixed;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    background-color: #000;
+    opacity: 0.30000001192092896;
+    transition: opacity .25s ease;
+    z-index: 2;
+}
+
+.navigation__close-btn {
+    border: none;
+    padding: 0;
+    width: 31.4px;
+    height: 31.4px;
+    background: url("../../images/Close.svg") no-repeat center;
+    background-size: contain;
+    position: absolute;
+    top: 13.4px;
+    right: 13.4px;
+}
+
+.navigation__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 144px auto 444px auto;
+    padding: 0;
+    max-width: 300px;
+}
+
+.navigation__link {
+    text-align: center;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 21.6px;
+    margin: 0 auto;
+    padding-bottom: 24px;
+}
+
+.navigation__link:last-child {
+    padding-bottom: 0;
+}
+
+@media screen and (min-width: 769px){
+    .navigation {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 560px){
+    .navigation {
+        width: 520px;
+    }
+
+    .navigation__icon {
+        right: 40px;
+        width: 26px;
+        height: 26px;
+    }
+
+    .navigation__menu {
+        width: 520px;
+    }
+
+    .navigation__list {
+        margin: 159px auto 621px auto;
+    }
+
+    .navigation__link {
+        padding-bottom: 28px;
+    }
+
+    .navigation__close-btn {
+        top: 22.4px;
+        right: 22.4px;
+    }
+}
+

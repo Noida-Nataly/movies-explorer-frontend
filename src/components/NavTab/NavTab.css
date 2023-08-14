@@ -1,0 +1,42 @@
+.navtab {
+    margin: 0 auto;
+    display: flex;
+    padding-bottom: 30px;
+}
+
+.navtab__list {
+    list-style: none;
+    display: flex;
+    margin: 0 auto;
+    padding: 0;
+    gap: 10px;
+    justify-items: center;
+}
+
+.navtab__link {
+    width: 96px;
+    height: 36px;
+    border-radius: 10px;
+    background: #303030;
+    color: #FFF;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px; /* 133.333% */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (max-width: 350px) {
+    .navtab__link {
+        max-width: 82px;
+        max-height: 26px;
+        font-size: 10px;
+    }
+
+    .navtab {
+        gap: 6px;
+        padding-bottom: 17px;
+    }
+}

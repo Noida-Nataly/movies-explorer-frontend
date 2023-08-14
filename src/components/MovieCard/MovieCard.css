@@ -1,0 +1,83 @@
+.movies__card {
+    margin: 0;
+    padding: 0;
+    width: 364px;
+    max-height: 271px;
+    background-color: #222;
+    box-shadow: 0px 4px 30px 0px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+.movies__film-headers {
+    height: 68px;
+    box-sizing: border-box;
+    padding: 14px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.movies__info {
+    display: flex;
+    gap: 9px;
+    flex-direction: column;
+}
+
+.movies__image {
+    width: 100%;
+    max-height: 203px;
+    object-fit: contain;
+    display: block;
+}
+
+.movies__save-button {
+    width: 30px;
+    height: 30px;
+    border: none;
+    margin: 5px;
+    padding: 0;
+    background: url("../../images/Flag_dark.svg") no-repeat center;
+}
+
+.movies__save-button_state-active {
+    background: url("../../images/Flag_green.svg") no-repeat center;
+}
+
+.movies__save-button_state-picked {
+    background: url("../../images/cross_small.svg") no-repeat center;
+}
+
+.movies__name {
+    color: #fff;
+    margin: 0;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: normal;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.movies__duration {
+    color: #8B8B8B;
+    margin: 0;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: normal;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+@media screen and (max-width: 892px) {
+    .movies__card {
+        width: 339px;
+        height: 258px;
+    }
+}
+
+@media screen and (max-width: 385px) {
+    .movies__card {
+        width: 300px;
+        height: 236px;
+    }
+}

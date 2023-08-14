@@ -1,7 +1,10 @@
 import AuthForm from "../AuthForm/AuthForm";
 
-export default function Login ({}) {
+export default function Login ({handleLogin}) {
   return (
-    <AuthForm isLogin={true}/>
+    <AuthForm
+      isLogin={true}
+      onSubmit={handleLogin}
+    />
   )
 }

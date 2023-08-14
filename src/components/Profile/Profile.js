@@ -1,11 +1,31 @@
+import React, {useState} from "react";
 import {Link} from "react-router-dom";
+import {CurrentUserContext} from "../../contexts/CurrentUserContext";
 
-export default function Profile ({user}) {
+export default function Profile ({handleLogout, handleUpdateProfile}) {
+  const currentUser = React.useContext(CurrentUserContext);
+
+  const [name, setName] = useState(currentUser.name);
+  const [email, setEmail] = useState(currentUser.email);
+
+  function onSubmitUpdateProfile(evt) {
+    evt.preventDefault();
+    handleUpdateProfile({name: name, email: email});
+  }
+
+  function changeName(evt) {
+    setName(evt.target.value);
+  }
+
+  function changeEmail(evt) {
+    setEmail(evt.target.value);
+  }
+
   return (
     <main className="content">
       <section className="profile">
-        <form name="profile-form" className="profile-form">
-          <h1 className="profile-form__title">Привет, {user.name}!</h1>
+        <form name="profile-form" className="profile-form" onSubmit={onSubmitUpdateProfile} >
+          <h1 className="profile-form__title">Привет, {currentUser.name}!</h1>
           <fieldset className="profile-form__fieldset">
             <label className="profile-form__label">Имя</label>
             <input
@@ -16,8 +36,8 @@ export default function Profile ({user}) {
               minLength='5'
               maxLength='100'
               required
-              value={user.name}
-              onChange={() => {}}
+              value={name}
+              onChange={changeName}
             />
           </fieldset>
           <fieldset className="profile-form__fieldset">
@@ -29,8 +49,8 @@ export default function Profile ({user}) {
               placeholder="email"
               minLength='5'
               maxLength='100'
-              value={user.email}
-              onChange={() => {}}
+              value={email}
+              onChange={changeEmail}
             />
           </fieldset>
           <span className="profile-form__error"></span>
@@ -41,6 +61,7 @@ export default function Profile ({user}) {
           </button>
           <Link
             className="profile-form__button profile-form__logout-link link"
+            onClick={handleLogout}
             to="/">
             Выйти из аккаунта
           </Link>

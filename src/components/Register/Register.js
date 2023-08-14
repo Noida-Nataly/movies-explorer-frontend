@@ -1,7 +1,10 @@
 import AuthForm from "../AuthForm/AuthForm";
 
-export default function Register ({}) {
+export default function Register ({handleRegister}) {
   return (
-    <AuthForm isLogin={false}/>
+    <AuthForm
+      isLogin={false}
+      onSubmit={handleRegister}
+    />
   )
 }

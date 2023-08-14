@@ -38,6 +38,12 @@
     background: url("../../images/Flag_dark.svg") no-repeat center;
 }
 
+.movies__save-button:hover {
+    cursor: pointer;
+    transition: .4s;
+    background-color: #272727;
+}
+
 .movies__save-button_state-active {
     background: url("../../images/Flag_green.svg") no-repeat center;
 }
@@ -49,6 +55,7 @@
 .movies__name {
     color: #fff;
     margin: 0;
+    max-width: 270px;
     font-weight: 500;
     font-size: 15px;
     line-height: normal;
@@ -79,5 +86,9 @@
     .movies__card {
         width: 300px;
         height: 236px;
+    }
+
+    .movies__name {
+        max-width: 220px;
     }
 }

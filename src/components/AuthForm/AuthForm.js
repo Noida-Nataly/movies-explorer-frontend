@@ -2,7 +2,33 @@ import logo from '../../images/logo.svg';
 import {Link} from "react-router-dom";
 import React from "react";
 
-export default function AuthForm ({isLogin}) {
+export default function AuthForm ({isLogin, onSubmit}) {
+
+  const [name, setName] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    const data = isLogin ?
+      {email: email, password: password} :
+      {email: email, password: password, name: name};
+    onSubmit(data);
+  }
+
+  function handleChangeName (evt) {
+    setName(evt.target.value)
+  }
+
+  function handleChangeEmail (evt) {
+    setEmail(evt.target.value)
+  }
+
+  function handleChangePassword (evt) {
+    setPassword(evt.target.value)
+  }
+
+
   return (
     <>
       <header className="header header-auth">
@@ -12,7 +38,7 @@ export default function AuthForm ({isLogin}) {
       </header>
       <main>
         <section className="auth">
-          <form name="auth-form" className="auth-form">
+          <form name="auth-form" className="auth-form" onSubmit={handleSubmit}>
             <h1 className="auth-form__title">
               {isLogin ? "Рады видеть!" : "Добро пожаловать!"}
             </h1>
@@ -27,6 +53,7 @@ export default function AuthForm ({isLogin}) {
                   maxLength='100'
                   required
                   placeholder='имя'
+                  onChange={handleChangeName}
                 />
               </fieldset>}
             <fieldset className="auth-form__fieldset">
@@ -39,6 +66,7 @@ export default function AuthForm ({isLogin}) {
                 maxLength="100"
                 required
                 placeholder="e-mail"
+                onChange={handleChangeEmail}
               />
             </fieldset>
             <fieldset className="auth-form__fieldset">
@@ -51,6 +79,7 @@ export default function AuthForm ({isLogin}) {
                 maxLength='20'
                 required
                 placeholder="password"
+                onChange={handleChangePassword}
                 autoComplete="true"
               />
             </fieldset>

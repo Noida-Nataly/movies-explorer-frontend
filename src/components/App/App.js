@@ -60,7 +60,7 @@ function App() {
     mainApi.deleteSavedMovie(savedMovie._id)
       .then(() => {
         setIsSaved(false);
-        setSavedMovies(savedMovies.filter(m => m._id != savedMovie._id));
+        setSavedMovies(savedMovies.filter(m => m._id !== savedMovie._id));
         setIsLoading(false);
       })
   }

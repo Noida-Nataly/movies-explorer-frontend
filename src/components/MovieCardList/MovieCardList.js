@@ -4,7 +4,7 @@ import useWindowSize from "../../hooks/useWindowSize";
 import {configAmountMovies} from "../../utils/constants";
 import {useEffect, useState} from "react";
 
-export default function MovieCardList ({movies, isSavedMovies, isLoading, handleSaveMovie, handleDeleteSavedMovie}) {
+export default function MovieCardList ({movies, isSavedMovies, isLoading, handleSaveMovie, handleDeleteSavedMovie, searchError}) {
   const width = useWindowSize();
   const [amountMovies, setAmountMovies] = useState(0);
   const [extraMovies, setExtraMovies] = useState(0);
@@ -36,13 +36,13 @@ export default function MovieCardList ({movies, isSavedMovies, isLoading, handle
   return (
       <section className="movies">
         {!isLoading &&
-          ((movies && movies.length > 0) ?
+          ((movies && movies.length > 0 && !(searchError && searchError.length >0)) ?
             (<>
               <ul className="movies__list">
                 {
                   movies.slice(0, amountMovies).map((movie) => (
                   <MovieCard
-                    key={movie.id}
+                    key={isSavedMovies ? movie._id : movie.id}
                     movie={movie}
                     isSavedMovies={isSavedMovies}
                     handleSaveMovie={handleSaveMovie}
@@ -51,7 +51,7 @@ export default function MovieCardList ({movies, isSavedMovies, isLoading, handle
                   )
                 )}
               </ul>
-              {(movies.length > amountMovies) ? // TODO: actually should be 12
+              {(movies.length > amountMovies) ?
                 (<div className="movies__allcards">
                   <button
                     className="movies__allcards-btn button"
@@ -64,7 +64,7 @@ export default function MovieCardList ({movies, isSavedMovies, isLoading, handle
               }
             </>
             ) : (<div className="movies__no-data">
-              Здесь пока нет фильмов </div> )
+                {(searchError && searchError.length > 0) ? searchError : "Здесь пока нет фильмов"} </div> )
           )
         }
         {isLoading && <Preloader />}

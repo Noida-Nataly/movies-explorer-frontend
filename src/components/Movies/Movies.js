@@ -8,13 +8,15 @@ export default function Movies ({
                                   isLoading,
                                   handleSaveMovie,
                                   handleDeleteSavedMovie,
-                                  handleSearchByName
+                                  handleSearchByName,
+                                  searchError,
                                   }) {
 
   return (
     <main className="content">
       <SearchForm
         handleSearchByName={handleSearchByName}
+        isSavedMovies={false}
       />
       <MovieCardList
         movies={movies}
@@ -22,6 +24,7 @@ export default function Movies ({
         isLoading={isLoading}
         handleSaveMovie={handleSaveMovie}
         handleDeleteSavedMovie={handleDeleteSavedMovie}
+        searchError={searchError}
       />
     </main>
   )

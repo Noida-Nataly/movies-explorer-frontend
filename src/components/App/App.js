@@ -21,9 +21,17 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [movies, setMovies] = useState([]);
+  const [savedMovies, setSavedMovies] = useState([]);
+  const [searchError, setSearchError] = useState('');
 
-  useEffect(getCurrentUser, [])
+  useEffect(() => {
+    getCurrentUser();
 
+  }, [])
+
+  // МЕТОДЫ РАБОТЫ С ФИЛЬМАМИ
+
+  // Метод добавления фильма в сохраненные
   function handleSaveMovie(movie, setIsSaved) {
     let savedMovie = {
       country: movie.country,
@@ -39,41 +47,106 @@ function App() {
       nameEN: movie.nameEN,
     }
     mainApi.addSavedMovies(savedMovie)
-      .then(() => {
+      .then((result) => {
         setIsSaved(true);
+        setSavedMovies([result.data, ...savedMovies])
       })
   }
 
-  function handleDeleteSavedMovie(movie) {
-    mainApi.deleteSavedMovie(movie.id)
-      .then(() => {movie.isSaved = false})
+  // Метод удаления фильма из сохраненных
+  function handleDeleteSavedMovie(movieId, setIsSaved) {
+    setIsLoading(true);
+    let savedMovie = savedMovies.filter(m => m.movieId === movieId)[0];
+    mainApi.deleteSavedMovie(savedMovie._id)
+      .then(() => {
+        setIsSaved(false);
+        setSavedMovies(savedMovies.filter(m => m._id != savedMovie._id));
+        setIsLoading(false);
+      })
   }
 
+  // Метод поиска фильма по наименованию
   function handleSearchByName(searchRequest) {
-    if (!searchRequest || searchRequest.length == 0) {
+    setSearchError('');
+    if (!searchRequest || searchRequest.length === 0) {
+      setMovies([]);
       return;
     }
     let searchRequestLower = searchRequest.toLowerCase();
+    setIsLoading(true);
     movieApi.getMovies()
       .then(result => {
-        setMovies(result.filter(movies => {
-          return movies.nameRU.toLowerCase().includes(searchRequestLower) ||
-                 movies.nameEN.toLowerCase().includes(searchRequestLower);
-        }));
+        result = result
+          .filter(movies => {
+            return movies.nameRU.toLowerCase().includes(searchRequestLower) ||
+              movies.nameEN.toLowerCase().includes(searchRequestLower);
+          });
+        result.forEach(movies => movies.isSaved = savedMovies.filter((m) => m.movieId === movies.id).length > 0);
+        setMovies(result);
+        if (result.length === 0) {
+          setSearchError('Ничего не найдено')
+        }
+      })
+      .catch(() => {
+        setSearchError('Во время запроса произошла ошибка. ' +
+          'Возможно, проблема с соединением или сервер недоступен. ' +
+          'Подождите немного и попробуйте ещё раз')
+    })
+      .finally(() => { setIsLoading(false) })
+  }
+
+  // Метод выбора сохраненного фильма
+  function getSavedMovies() {
+    setIsLoading(true);
+    return mainApi.getSavedMovies()
+      .then(result => {
+        setSavedMovies(result);
       })
       .finally(() => { setIsLoading(false) })
   }
 
+  // Метод поиска фильма в сохраненных
+  function handleSearchSavedByName(searchRequest) {
+    setSearchError('');
+    getSavedMovies()
+      .then(() => {
+        if (!searchRequest || searchRequest.length === 0) {
+          return;
+        }
+        let searchRequestLower = searchRequest.toLowerCase();
+        let filteredSavedMovies = savedMovies
+            .filter(movies => {
+              return movies.nameRU.toLowerCase().includes(searchRequestLower) ||
+                movies.nameEN.toLowerCase().includes(searchRequestLower);
+            });
+          setSavedMovies(filteredSavedMovies);
+        if (filteredSavedMovies.length === 0) {
+          setSearchError('Ничего не найдено')
+        }
+        })
+      .catch(() => {
+        setSearchError('Во время запроса произошла ошибка. ' +
+          'Возможно, проблема с соединением или сервер недоступен. ' +
+          'Подождите немного и попробуйте ещё раз')
+      });
+  }
+
+
+  //МЕТОДЫ РАБОТЫ С ПОЛЬЗОВАТЕЛЕМ
+
+  // Метод получения данных пользователя из токена
   function getCurrentUser() {
     mainApi.getUser()
       .then((res) => {
         if (res) {
           setIsLoggedIn(true);
           setCurrentUser(res.data);
+          getSavedMovies();
         }
       });
   }
 
+  // Метод редактирования данных пользователя
   function updateProfile(data) {
     mainApi.updateProfile(data.name, data.email)
       .then(user => {
@@ -81,20 +154,23 @@ function App() {
       })
   }
 
+  // Метод создания пользователя (регистрации)
   function createUser(data) {
     mainApi.createUser(data.name, data.email, data.password)
-      .then(user => {
+      .then(() => {
         login(data);
       })
   }
 
+  // Метод авторизации пользователя
   function login(data) {
     mainApi.login(data.email, data.password)
-      .then(user => {
+      .then(() => {
         getCurrentUser();
       })
   }
 
+  // Метод выхода из аккаунта
   function logout() {
     mainApi.logout()
       .then(() => {
@@ -129,6 +205,7 @@ function App() {
                                      handleSaveMovie={handleSaveMovie}
                                      handleDeleteSavedMovie={handleDeleteSavedMovie}
                                      handleSearchByName={handleSearchByName}
+                                     searchError = {searchError}
               />
               <Footer />
             </>
@@ -139,12 +216,13 @@ function App() {
                 isLoggedIn={isLoggedIn}
               />
               <ProtectedRouteElement element={SavedMovies}
-                                     movies={movies}
+                                     savedMovies={savedMovies}
                                      isLoading={isLoading}
                                      isLoggedIn={isLoggedIn}
                                      handleSaveMovie={handleSaveMovie}
                                      handleDeleteSavedMovie={handleDeleteSavedMovie}
-                                     handleSearchByName={handleSearchByName}
+                                     handleSearchByName={handleSearchSavedByName}
+                                     searchError={searchError}
               />
               <Footer />
             </>

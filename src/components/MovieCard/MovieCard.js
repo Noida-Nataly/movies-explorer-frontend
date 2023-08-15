@@ -12,7 +12,7 @@ export default function MovieCard ({movie, isSavedMovies, handleSaveMovie, handl
 
     function toggleState() {
       if (isSaved) {
-        handleDeleteSavedMovie(movie);
+        handleDeleteSavedMovie(isSavedMovies ? movie.movieId : movie.id, setIsSaved);
       } else {
         handleSaveMovie(movie, setIsSaved);
       }
@@ -33,7 +33,7 @@ export default function MovieCard ({movie, isSavedMovies, handleSaveMovie, handl
             </button>
             </div>
           <Link className="movies__trailer-link" to={movie.trailerLink} target="_blank">
-            <img src={movie.image.url} alt={movie.nameRU} className="movies__image" />
+            <img src={movie.image && movie.image.url ? movie.image.url : movie.image} alt={movie.nameRU} className="movies__image" />
           </Link>
         </li>
       </>

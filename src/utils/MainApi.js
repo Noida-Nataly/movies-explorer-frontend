@@ -65,6 +65,13 @@ class MainApi {
     })
   }
 
+  // Метод получения данных пользователя с сервера
+  getUser() {
+    return this._sendRequest(this._baseUrl+'/users/me', {
+      method: 'GET',
+    });
+  }
+
 
   // Метод добавления фильма в сохраненные на сервере
   addSavedMovies (movie) {
@@ -81,13 +88,16 @@ class MainApi {
     })
   }
 
-  // Метод получения данных пользователя с сервера
-  getUser() {
-    return this._sendRequest(this._baseUrl+'/users/me', {
-      method: 'GET',
-    });
+  //Метод выборки всех сохранённых фильмов с сервера
+  getSavedMovies() {
+    return this._sendRequest(this._baseUrl + '/movies', {
+      method: 'GET'
+    })
+      .then(res => {
+        res.forEach(m => m.isSaved = true);
+        return res;
+      })
   }
-
 }
 
 export const mainApi = new MainApi (mainApiUrl);

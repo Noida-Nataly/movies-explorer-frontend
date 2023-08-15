@@ -1,10 +1,36 @@
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import Magnifier from "../../images/magnifier.svg";
+import {useEffect, useState} from "react";
+import {useLocation} from "react-router-dom";
 
-export default function SearchForm ({handleSearchByName}) {
+export default function SearchForm ({handleSearchByName, isSavedMovies}) {
+    const [searchQuery, setSearchQuery] =useState('');
+    let location = useLocation();
+
+    useEffect(()=> {
+        if (isSavedMovies) {
+            setSearchQuery (localStorage.getItem('savedMoviesSearchQuery'))
+        } else {
+            setSearchQuery (localStorage.getItem('moviesSearchQuery'))
+        }
+        handleSearchByName(searchQuery);
+    }, [location])
+
+
     function handleSearch(evt) {
         evt.preventDefault();
-        handleSearchByName(evt.target.value);
+        if (isSavedMovies) {
+            localStorage.setItem('savedMoviesSearchQuery', searchQuery)
+        } else {
+            localStorage.setItem('moviesSearchQuery', searchQuery)
+        }
+        handleSearchByName(searchQuery);
+    }
+
+
+    // Метод отслеживания изменений значений поискоой строки
+    function handleTyping (evt) {
+        setSearchQuery(evt.target.value);
     }
 
 
@@ -17,13 +43,13 @@ export default function SearchForm ({handleSearchByName}) {
                         <input id="searchform__name-movies"
                                className="searchform__name-movies"
                                placeholder="Фильм"
-                               onChange={handleSearch}
+                               onChange={handleTyping}
+                               value={searchQuery}
                                autoComplete="none"
-                               required
                         />
                         <button
                           className="searchform__find-btn button"
-                          type = "button">
+                          type = "submit">
                         </button>
                 </div>
                 <FilterCheckbox />

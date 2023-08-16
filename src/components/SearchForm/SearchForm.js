@@ -5,26 +5,37 @@ import {useLocation} from "react-router-dom";
 
 export default function SearchForm ({handleSearchByName, isSavedMovies}) {
     const [searchQuery, setSearchQuery] =useState('');
+    const [shortsToggle, setShortsToggle] =useState(false);
     let location = useLocation();
 
     useEffect(()=> {
         if (isSavedMovies) {
-            setSearchQuery (localStorage.getItem('savedMoviesSearchQuery'))
+            let searchQuery = localStorage.getItem('savedMoviesSearchQuery');
+            let shortsToggle = localStorage.getItem('savedMoviesShortsToggle');
+            setSearchQuery(searchQuery ? searchQuery : '');
+            setShortsToggle(shortsToggle ? shortsToggle : false);
         } else {
-            setSearchQuery (localStorage.getItem('moviesSearchQuery'))
+            let searchQuery = localStorage.getItem('moviesSearchQuery');
+            let shortsToggle = localStorage.getItem('moviesShortsToggle');
+            setSearchQuery(searchQuery ? searchQuery : '');
+            setShortsToggle(shortsToggle ? shortsToggle : false);
         }
-        handleSearchByName(searchQuery);
+        handleSearchByName(searchQuery, shortsToggle);
     }, [location])
 
+
+    useEffect(()=> {
+        handleSearchByName(searchQuery, shortsToggle);
+    }, [shortsToggle])
 
     function handleSearch(evt) {
         evt.preventDefault();
         if (isSavedMovies) {
-            localStorage.setItem('savedMoviesSearchQuery', searchQuery)
+            localStorage.setItem('savedMoviesSearchQuery', searchQuery);
         } else {
-            localStorage.setItem('moviesSearchQuery', searchQuery)
+            localStorage.setItem('moviesSearchQuery', searchQuery);
         }
-        handleSearchByName(searchQuery);
+        handleSearchByName(searchQuery, shortsToggle);
     }
 
 
@@ -33,6 +44,14 @@ export default function SearchForm ({handleSearchByName, isSavedMovies}) {
         setSearchQuery(evt.target.value);
     }
 
+    function handleShortsToggle(evt) {
+        if (isSavedMovies) {
+            localStorage.setItem('savedMoviesShortsToggle', evt.target.checked);
+        } else {
+            localStorage.setItem('moviesShortsToggle', evt.target.checked);
+        }
+        setShortsToggle(evt.target.checked);
+    }
 
     return (
       <section>
@@ -52,7 +71,10 @@ export default function SearchForm ({handleSearchByName, isSavedMovies}) {
                           type = "submit">
                         </button>
                 </div>
-                <FilterCheckbox />
+                <FilterCheckbox
+                  handleShortsToggle={handleShortsToggle}
+                  shortsToggle={shortsToggle}
+                />
             </div>
         </form>
       </section>

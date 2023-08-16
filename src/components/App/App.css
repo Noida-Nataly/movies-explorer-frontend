@@ -44,6 +44,10 @@
   cursor: pointer;
 }
 
+.button__disabled {
+  opacity: .4;
+  transition: .4s;
+}
 
 @media screen and (max-width: 892px) {
   .container {

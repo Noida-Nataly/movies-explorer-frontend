@@ -24,7 +24,7 @@ export default function MovieCard ({movie, isSavedMovies, handleSaveMovie, handl
             <div className="movies__film-headers">
                 <div className="movies__info">
                      <h2 className="movies__name">{movie.nameRU}</h2>
-                     <h3 className="movies__duration">{movie.duration}</h3>
+                     <h3 className="movies__duration">{Math.floor(movie.duration / 60) + 'h ' + movie.duration % 60 + 'm'}</h3>
                 </div>
             <button className={saveClassName}
                     type="button"

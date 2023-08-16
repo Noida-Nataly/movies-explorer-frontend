@@ -11,6 +11,8 @@ import Profile from "../Profile/Profile";
 import ProtectedRouteElement from "../ProtectedRoute/ProtectedRoute";
 import Register from "../Register/Register";
 import SavedMovies from "../SavedMovies/SavedMovies";
+import InfoTooltip from "../InfoTooltip/InfoTooltip";
+
 
 import {CurrentUserContext} from "../../contexts/CurrentUserContext";
 import {mainApi} from "../../utils/MainApi";
@@ -23,6 +25,9 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
   const [searchError, setSearchError] = useState('');
+  const [isOk,setIsOk] = useState(true);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [messageTooltip,setMessageTooltip] = useState('');
 
   useEffect(() => {
     getCurrentUser();
@@ -66,7 +71,7 @@ function App() {
   }
 
   // Метод поиска фильма по наименованию
-  function handleSearchByName(searchRequest) {
+  function handleSearchByName(searchRequest, shortsToggle) {
     setSearchError('');
     if (!searchRequest || searchRequest.length === 0) {
       setMovies([]);
@@ -78,8 +83,8 @@ function App() {
       .then(result => {
         result = result
           .filter(movies => {
-            return movies.nameRU.toLowerCase().includes(searchRequestLower) ||
-              movies.nameEN.toLowerCase().includes(searchRequestLower);
+            return (movies.nameRU.toLowerCase().includes(searchRequestLower) ||
+              movies.nameEN.toLowerCase().includes(searchRequestLower)) && (!shortsToggle || movies.duration < 50);
           });
         result.forEach(movies => movies.isSaved = savedMovies.filter((m) => m.movieId === movies.id).length > 0);
         setMovies(result);
@@ -106,18 +111,22 @@ function App() {
   }
 
   // Метод поиска фильма в сохраненных
-  function handleSearchSavedByName(searchRequest) {
+  function handleSearchSavedByName(searchRequest, shortsToggle) {
     setSearchError('');
-    getSavedMovies()
-      .then(() => {
-        if (!searchRequest || searchRequest.length === 0) {
-          return;
-        }
+    setIsLoading(true);
+    return mainApi.getSavedMovies()
+      .then(result => {
+        setSavedMovies(result);
+        return result;
+      })
+      .then((saved) => {
         let searchRequestLower = searchRequest.toLowerCase();
-        let filteredSavedMovies = savedMovies
+        let filteredSavedMovies = saved
             .filter(movies => {
-              return movies.nameRU.toLowerCase().includes(searchRequestLower) ||
-                movies.nameEN.toLowerCase().includes(searchRequestLower);
+              return (!(searchRequest && searchRequest.length > 0) ||
+                (movies.nameRU.toLowerCase().includes(searchRequestLower) ||
+                movies.nameEN.toLowerCase().includes(searchRequestLower)))
+                  && (!shortsToggle || movies.duration < 50);
             });
           setSavedMovies(filteredSavedMovies);
         if (filteredSavedMovies.length === 0) {
@@ -128,7 +137,8 @@ function App() {
         setSearchError('Во время запроса произошла ошибка. ' +
           'Возможно, проблема с соединением или сервер недоступен. ' +
           'Подождите немного и попробуйте ещё раз')
-      });
+      })
+      .finally(() => { setIsLoading(false) });
   }
 
 
@@ -151,6 +161,14 @@ function App() {
     mainApi.updateProfile(data.name, data.email)
       .then(user => {
         setCurrentUser(user.data);
+        setIsOk(true);
+        setMessageTooltip('Ваши данные изменены.')
+        setIsPopupOpen(true);
+      })
+      .catch(() => {
+        setIsOk(false);
+        setMessageTooltip('Что-то пошло не так! Попробуйте еще раз.')
+        setIsPopupOpen(true);
       })
   }
 
@@ -182,14 +200,19 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="root container">
+        <InfoTooltip
+          isOpen={isPopupOpen}
+          onClose={setIsPopupOpen}
+          isOk = {isOk}
+          message={messageTooltip}
+        />
         <Routes>
           <Route path='/' element={
             <>
               <Header
                 isLoggedIn={isLoggedIn}
               />
-              <ProtectedRouteElement element={Main}
-                                     isLoggedIn={isLoggedIn}/>
+              <Main isLoggedIn={isLoggedIn}/>
               <Footer />
             </>
           }/>

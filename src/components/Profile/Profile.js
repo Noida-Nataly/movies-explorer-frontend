@@ -1,24 +1,26 @@
-import React, {useState} from "react";
+import React, {useEffect} from "react";
 import {Link} from "react-router-dom";
 import {CurrentUserContext} from "../../contexts/CurrentUserContext";
+import {useFormWithValidation} from "../../hooks/useFormWithValidation";
 
 export default function Profile ({handleLogout, handleUpdateProfile}) {
   const currentUser = React.useContext(CurrentUserContext);
+  const [isValid, setIsValid] = React.useState(false);
 
-  const [name, setName] = useState(currentUser.name);
-  const [email, setEmail] = useState(currentUser.email);
+  const { values, handleChangeInput, errors, setValues } = useFormWithValidation(currentUser);
+
+  useEffect(() => {
+    setValues({name: currentUser.name, email: currentUser.email});
+  }, [])
 
   function onSubmitUpdateProfile(evt) {
     evt.preventDefault();
-    handleUpdateProfile({name: name, email: email});
+    handleUpdateProfile({name: values.name, email: values.email});
   }
 
-  function changeName(evt) {
-    setName(evt.target.value);
-  }
-
-  function changeEmail(evt) {
-    setEmail(evt.target.value);
+  function handleChange(evt) {
+    handleChangeInput(evt);
+    setIsValid(errors.email || errors.password);
   }
 
   return (
@@ -36,9 +38,10 @@ export default function Profile ({handleLogout, handleUpdateProfile}) {
               minLength='5'
               maxLength='100'
               required
-              value={name}
-              onChange={changeName}
+              value={values.name}
+              onChange={handleChange}
             />
+            {errors && errors.name ? <span>{errors.name}</span> : ""}
           </fieldset>
           <fieldset className="profile-form__fieldset">
             <label className="profile-form__label">E-mail</label>
@@ -49,14 +52,15 @@ export default function Profile ({handleLogout, handleUpdateProfile}) {
               placeholder="email"
               minLength='5'
               maxLength='100'
-              value={email}
-              onChange={changeEmail}
+              value={values.email}
+              onChange={handleChange}
             />
+            {errors && errors.email ? <span>{errors.email}</span> : ""}
           </fieldset>
           <span className="profile-form__error"></span>
           <button
-            className="profile-form__button profile-form__edit-btn button"
-            type ="submit" >
+            className={"profile-form__button profile-form__edit-btn button" + (isValid ? " button__disabled" : "") }
+            type ="submit" disabled={isValid}>
             Редактировать
           </button>
           <Link

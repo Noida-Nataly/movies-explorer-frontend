@@ -1,30 +1,22 @@
-import {useCallback, useRef, useState} from "react";
+import React, {useEffect} from "react";
 
-// хук управления формой и валидации формы
-export function useFormWithValidation(initialValue = {}) {
-  const [values, setValues] = useState({});
-  const [errors, setErrors] = useState({});
-  const [isValid, setIsValid] = useState(false);
+//хук управления формой и валидации формы
+export function useFormWithValidation({initialState}) {
+  const [values, setValues] = React.useState({});
+  const [errors, setErrors] = React.useState({});
 
-  const initialState = useRef(initialValue);
-
-  const handleChange = useCallback((event) => {
+  useEffect(() => {
+    if (initialState) {
+      setValues(initialState);
+    }
+  }, [])
+  const handleChangeInput = (event) => {
     const target = event.target;
     const name = target.name;
     const value = target.value;
     setValues({...values, [name]: value});
     setErrors({...errors, [name]: target.validationMessage });
-    setIsValid(target.closest("form").checkValidity());
-  }, []);
+  };
 
-  const resetForm = useCallback(
-    (newValues = {}, newErrors = {}, newIsValid = false) => {
-      setValues(newValues);
-      setErrors(newErrors);
-      setIsValid(newIsValid);
-    },
-    [setValues, setErrors, setIsValid]
-  );
-
-  return { values, handleChange, errors, isValid, resetForm, initialState };
+  return { values, handleChangeInput, errors, setValues };
 }

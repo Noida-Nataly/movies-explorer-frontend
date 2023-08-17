@@ -19,7 +19,10 @@ export default function SearchForm ({handleSearchByName, isSavedMovies}) {
         }
         setSearchQuery(prevRequest ? prevRequest : '');
         setShortsToggle(prevToggle ? prevToggle === "true" : false);
-        handleSearchByName(prevRequest, prevToggle === "true");
+        if ((location.pathname === '/saved-movies' && isSavedMovies)
+          || (location.pathname === '/movies' && !isSavedMovies)) {
+            handleSearchByName(prevRequest, prevToggle === "true");
+        }
     }, [location])
 
     function handleSearch(evt) {

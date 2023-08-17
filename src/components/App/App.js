@@ -57,8 +57,10 @@ function App() {
     mainApi.addSavedMovies(savedMovie)
       .then((result) => {
         setIsSaved(true);
-        setSavedMovies([result.data, ...savedMovies])
-        setAllSavedMovies([result.data, ...allSavedMovies])
+        setSavedMovies([result.data, ...savedMovies]);
+        setAllSavedMovies([result.data, ...allSavedMovies]);
+        allMovies.forEach(movie => movie.isSaved = allSavedMovies.filter((m) => m.movieId === movie.id).length > 0);
+        movies.forEach(movie => movie.isSaved = allSavedMovies.filter((m) => m.movieId === movie.id).length > 0);
       })
       .catch(()=> {
         setIsOk(false);
@@ -77,6 +79,8 @@ function App() {
         setSavedMovies(savedMovies.filter(m => m._id !== savedMovie._id));
         setAllSavedMovies(allSavedMovies.filter(m => m._id !== savedMovie._id));
         setIsLoading(false);
+        allMovies.forEach(movie => movie.isSaved = allSavedMovies.filter((m) => m.movieId === movie.id).length > 0);
+        movies.forEach(movie => movie.isSaved = allSavedMovies.filter((m) => m.movieId === movie.id).length > 0);
       })
       .catch(()=> {
         setIsOk(false);
@@ -109,7 +113,7 @@ function App() {
     }
     if (allMovies && allMovies.length > 0) {
       let pickedMovies = filterMovies(searchRequest, allMovies, shortsToggle);
-      pickedMovies.forEach(movies => movies.isSaved = savedMovies.filter((m) => m.movieId === movies.id).length > 0);
+      pickedMovies.forEach(movie => movie.isSaved = allSavedMovies.filter((m) => m.movieId === movie.id).length > 0);
       if (pickedMovies.length === 0) {
         setSearchError('Ничего не найдено')
       }
@@ -118,7 +122,7 @@ function App() {
       getBaseMovies()
         .finally(() => {
           let pickedMovies = filterMovies(searchRequest, allMovies, shortsToggle);
-          pickedMovies.forEach(movies => movies.isSaved = savedMovies.filter((m) => m.movieId === movies.id).length > 0);
+          pickedMovies.forEach(movie => movie.isSaved = allSavedMovies.filter((m) => m.movieId === movie.id).length > 0);
           if (pickedMovies.length === 0) {
             setSearchError('Ничего не найдено')
           }
@@ -143,8 +147,8 @@ function App() {
     return mainApi.getSavedMovies()
       .then(result => {
         setAllSavedMovies(result);
-        allMovies.forEach(movie => movie.isSaved = allSavedMovies.filter((m) => m.movieId === movies.id).length > 0);
-        movies.forEach(movie => movie.isSaved = allSavedMovies.filter((m) => m.movieId === movies.id).length > 0);
+        allMovies.forEach(movie => movie.isSaved = allSavedMovies.filter((m) => m.movieId === movie.id).length > 0);
+        movies.forEach(movie => movie.isSaved = allSavedMovies.filter((m) => m.movieId === movie.id).length > 0);
       })
       .catch(() => {
         setSearchError('Во время запроса произошла ошибка. ' +
@@ -158,7 +162,7 @@ function App() {
   function handleSearchSavedByName(searchRequest, shortsToggle) {
     setSearchError('');
     if (allSavedMovies && allSavedMovies.length > 0) {
-      if (!searchRequest || searchRequest.length === 0 ) {
+      if ((!searchRequest || searchRequest.length === 0) && !shortsToggle) {
         setSavedMovies(allSavedMovies);
       } else {
         let pickedMovies = filterMovies(searchRequest, allSavedMovies, shortsToggle);

@@ -128,10 +128,10 @@ function App() {
 
   // Метод фильтрации массива фильмов
   function filterMovies (searchRequest, moviesList, shortsToggle) {
-    let searchRequestLower = searchRequest.toLowerCase();
+    let searchRequestLower = searchRequest ? searchRequest.toLowerCase() : "";
     let filteredMovies = moviesList.filter(movie => {
-      return (movie.nameRU.toLowerCase().includes(searchRequestLower) ||
-        movie.nameEN.toLowerCase().includes(searchRequestLower)) && (!shortsToggle || movie.duration < 50);
+      return (searchRequestLower.length == 0 || (movie.nameRU.toLowerCase().includes(searchRequestLower) ||
+        movie.nameEN.toLowerCase().includes(searchRequestLower))) && (!shortsToggle || movie.duration < 50);
     });
      return filteredMovies;
   }

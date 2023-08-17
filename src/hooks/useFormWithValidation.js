@@ -20,5 +20,5 @@ export function useFormWithValidation({initialState}) {
     setIsValid(target.closest("form").checkValidity());
   };
 
-  return { values, handleChangeInput, errors, setValues, isValid };
+  return { values, handleChangeInput, errors, setValues, isValid,setIsValid };
 }

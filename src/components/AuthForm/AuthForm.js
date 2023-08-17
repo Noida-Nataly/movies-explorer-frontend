@@ -8,7 +8,7 @@ export default function AuthForm ({isLogin, onSubmit}) {
 
   const [isValid, setIsValid] = React.useState(false);
 
-  const { values, handleChangeInput, errors } = useFormWithValidation();
+  const { values, handleChangeInput, errors } = useFormWithValidation({});
 
   function onSubmitForm(evt) {
     evt.preventDefault();

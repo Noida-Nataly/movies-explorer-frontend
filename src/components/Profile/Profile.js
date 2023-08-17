@@ -5,9 +5,8 @@ import {useFormWithValidation} from "../../hooks/useFormWithValidation";
 
 export default function Profile ({handleLogout, handleUpdateProfile}) {
   const currentUser = React.useContext(CurrentUserContext);
-  // const [isValid, setIsValid] = React.useState(false);
 
-  const { values, handleChangeInput, errors, setValues, isValid } = useFormWithValidation(currentUser);
+  const { values, handleChangeInput, errors, setValues, isValid, setIsValid } = useFormWithValidation(currentUser);
 
   useEffect(() => {
     setValues({name: currentUser.name, email: currentUser.email});
@@ -16,6 +15,7 @@ export default function Profile ({handleLogout, handleUpdateProfile}) {
   function onSubmitUpdateProfile(evt) {
     evt.preventDefault();
     handleUpdateProfile({name: values.name, email: values.email});
+    setIsValid(false);
   }
 
   function handleChange(evt) {

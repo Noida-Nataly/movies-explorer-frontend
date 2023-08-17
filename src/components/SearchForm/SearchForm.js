@@ -8,25 +8,22 @@ export default function SearchForm ({handleSearchByName, isSavedMovies}) {
     const [shortsToggle, setShortsToggle] =useState(false);
     let location = useLocation();
 
-    useEffect(()=> {
+    useEffect(() => {
+        let prevRequest, prevToggle;
         if (isSavedMovies) {
-            let searchQuery = localStorage.getItem('savedMoviesSearchQuery');
-            let shortsToggle = localStorage.getItem('savedMoviesShortsToggle');
-            setSearchQuery(searchQuery ? searchQuery : '');
-            setShortsToggle(shortsToggle ? shortsToggle : false);
+            prevRequest = localStorage.getItem('savedMoviesSearchQuery');
+            prevToggle = localStorage.getItem('savedMoviesShortsToggle');
         } else {
-            let searchQuery = localStorage.getItem('moviesSearchQuery');
-            let shortsToggle = localStorage.getItem('moviesShortsToggle');
-            setSearchQuery(searchQuery ? searchQuery : '');
-            setShortsToggle(shortsToggle ? shortsToggle : false);
+            prevRequest = localStorage.getItem('moviesSearchQuery');
+            prevToggle = localStorage.getItem('moviesShortsToggle');
         }
-        handleSearchByName(searchQuery, shortsToggle);
+        setSearchQuery(prevRequest ? prevRequest : '');
+        setShortsToggle(prevToggle ? prevToggle === "true" : false);
+        if ((location.pathname === '/saved-movies' && isSavedMovies)
+          || (location.pathname === '/movies' && !isSavedMovies)) {
+            handleSearchByName(prevRequest, prevToggle === "true");
+        }
     }, [location])
-
-
-    useEffect(()=> {
-        handleSearchByName(searchQuery, shortsToggle);
-    }, [shortsToggle])
 
     function handleSearch(evt) {
         evt.preventDefault();
@@ -51,6 +48,7 @@ export default function SearchForm ({handleSearchByName, isSavedMovies}) {
             localStorage.setItem('moviesShortsToggle', evt.target.checked);
         }
         setShortsToggle(evt.target.checked);
+        handleSearchByName(searchQuery, evt.target.checked);
     }
 
     return (

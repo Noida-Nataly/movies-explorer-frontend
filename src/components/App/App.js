@@ -28,10 +28,14 @@ function App() {
   const [isOk,setIsOk] = useState(true);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [messageTooltip,setMessageTooltip] = useState('');
+  const [allMovies, setAllMovies] = useState([]);
+  const [allSavedMovies, setAllSavedMovies] = useState([]);
+
 
   useEffect(() => {
     getCurrentUser();
-
+    getBaseMovies();
+    getSavedMovies();
   }, [])
 
   // МЕТОДЫ РАБОТЫ С ФИЛЬМАМИ
@@ -56,6 +60,11 @@ function App() {
         setIsSaved(true);
         setSavedMovies([result.data, ...savedMovies])
       })
+      .catch(()=> {
+        setIsOk(false);
+        setMessageTooltip('Что-то пошло не так! Фильм не сохранен. Попробуйте еще раз.')
+        setIsPopupOpen(true);
+      })
   }
 
   // Метод удаления фильма из сохраненных
@@ -68,6 +77,26 @@ function App() {
         setSavedMovies(savedMovies.filter(m => m._id !== savedMovie._id));
         setIsLoading(false);
       })
+      .catch(()=> {
+        setIsOk(false);
+        setMessageTooltip('Что-то пошло не так! Фильм не удален. Попробуйте еще раз.')
+        setIsPopupOpen(true);
+      })
+  }
+
+  // Метод загрузки базы фильмов
+  function getBaseMovies () {
+    setIsLoading(true);
+    return movieApi.getMovies()
+    .then (result => {
+      setAllMovies(result);
+    })
+    .catch(() => {
+      setSearchError('Во время запроса произошла ошибка. ' +
+        'Возможно, проблема с соединением или сервер недоступен. ' +
+        'Подождите немного и попробуйте ещё раз')
+    })
+    .finally(() => { setIsLoading(false) })
   }
 
   // Метод поиска фильма по наименованию
@@ -77,35 +106,47 @@ function App() {
       setMovies([]);
       return;
     }
+    if (allMovies && allMovies.length > 0) {
+      let pickedMovies = filterMovies(searchRequest, allMovies, shortsToggle);
+      pickedMovies.forEach(movies => movies.isSaved = savedMovies.filter((m) => m.movieId === movies.id).length > 0);
+      if (pickedMovies.length === 0) {
+        setSearchError('Ничего не найдено')
+      }
+      setMovies(pickedMovies);
+    } else {
+      getBaseMovies()
+        .finally(() => {
+          let pickedMovies = filterMovies(searchRequest, allMovies, shortsToggle);
+          pickedMovies.forEach(movies => movies.isSaved = savedMovies.filter((m) => m.movieId === movies.id).length > 0);
+          if (pickedMovies.length === 0) {
+            setSearchError('Ничего не найдено')
+          }
+          setMovies(pickedMovies);
+        })
+    }
+  }
+
+  // Метод фильтрации массива фильмов
+  function filterMovies (searchRequest, moviesList, shortsToggle) {
     let searchRequestLower = searchRequest.toLowerCase();
+    let filteredMovies = moviesList.filter(movie => {
+      return (movie.nameRU.toLowerCase().includes(searchRequestLower) ||
+        movie.nameEN.toLowerCase().includes(searchRequestLower)) && (!shortsToggle || movie.duration < 50);
+    });
+     return filteredMovies;
+  }
+
+  // Метод выбора сохраненных фильмов
+  function getSavedMovies() {
     setIsLoading(true);
-    movieApi.getMovies()
+    return mainApi.getSavedMovies()
       .then(result => {
-        result = result
-          .filter(movies => {
-            return (movies.nameRU.toLowerCase().includes(searchRequestLower) ||
-              movies.nameEN.toLowerCase().includes(searchRequestLower)) && (!shortsToggle || movies.duration < 50);
-          });
-        result.forEach(movies => movies.isSaved = savedMovies.filter((m) => m.movieId === movies.id).length > 0);
-        setMovies(result);
-        if (result.length === 0) {
-          setSearchError('Ничего не найдено')
-        }
+        setAllSavedMovies(result);
       })
       .catch(() => {
         setSearchError('Во время запроса произошла ошибка. ' +
           'Возможно, проблема с соединением или сервер недоступен. ' +
           'Подождите немного и попробуйте ещё раз')
-    })
-      .finally(() => { setIsLoading(false) })
-  }
-
-  // Метод выбора сохраненного фильма
-  function getSavedMovies() {
-    setIsLoading(true);
-    return mainApi.getSavedMovies()
-      .then(result => {
-        setSavedMovies(result);
       })
       .finally(() => { setIsLoading(false) })
   }
@@ -113,32 +154,30 @@ function App() {
   // Метод поиска фильма в сохраненных
   function handleSearchSavedByName(searchRequest, shortsToggle) {
     setSearchError('');
-    setIsLoading(true);
-    return mainApi.getSavedMovies()
-      .then(result => {
-        setSavedMovies(result);
-        return result;
-      })
-      .then((saved) => {
-        let searchRequestLower = searchRequest.toLowerCase();
-        let filteredSavedMovies = saved
-            .filter(movies => {
-              return (!(searchRequest && searchRequest.length > 0) ||
-                (movies.nameRU.toLowerCase().includes(searchRequestLower) ||
-                movies.nameEN.toLowerCase().includes(searchRequestLower)))
-                  && (!shortsToggle || movies.duration < 50);
-            });
-          setSavedMovies(filteredSavedMovies);
-        if (filteredSavedMovies.length === 0) {
+    if (allSavedMovies && allSavedMovies.length > 0) {
+      let pickedMovies = filterMovies(searchRequest, allSavedMovies, shortsToggle);
+      if (!searchRequest || searchRequest.length === 0 ) {
+        setSavedMovies(allSavedMovies);
+      } else {
+        if (pickedMovies.length === 0) {
           setSearchError('Ничего не найдено')
         }
+        setSavedMovies(pickedMovies);
+      }
+    } else {
+      getSavedMovies()
+        .then(() => {
+          let pickedMovies = filterMovies(searchRequest, allSavedMovies, shortsToggle);
+          if (!searchRequest || searchRequest.length === 0 ) {
+            setSavedMovies(allSavedMovies);
+          } else {
+            if (pickedMovies.length === 0) {
+              setSearchError('Ничего не найдено')
+            }
+            setSavedMovies(pickedMovies);
+          }
         })
-      .catch(() => {
-        setSearchError('Во время запроса произошла ошибка. ' +
-          'Возможно, проблема с соединением или сервер недоступен. ' +
-          'Подождите немного и попробуйте ещё раз')
-      })
-      .finally(() => { setIsLoading(false) });
+    }
   }
 
 
@@ -153,6 +192,11 @@ function App() {
           setCurrentUser(res.data);
           getSavedMovies();
         }
+      })
+      .catch(()=> {
+        setIsOk(false);
+        setMessageTooltip('Ошибка авторизации. Не удалось получить данные о текущем пользователе. Попробуйте еще раз.')
+        setIsPopupOpen(true);
       });
   }
 
@@ -178,6 +222,11 @@ function App() {
       .then(() => {
         login(data);
       })
+      .catch(()=> {
+        setIsOk(false);
+        setMessageTooltip('Ошибка регистрации пользователя. Попробуйте еще раз.')
+        setIsPopupOpen(true);
+      })
   }
 
   // Метод авторизации пользователя
@@ -185,6 +234,11 @@ function App() {
     mainApi.login(data.email, data.password)
       .then(() => {
         getCurrentUser();
+      })
+      .catch(()=> {
+        setIsOk(false);
+        setMessageTooltip('Неправильный адрес почты или пароль Попробуйте еще раз.')
+        setIsPopupOpen(true);
       })
   }
 
@@ -194,6 +248,11 @@ function App() {
       .then(() => {
         setCurrentUser({});
         setIsLoggedIn(false);
+      })
+      .catch(()=> {
+        setIsOk(false);
+        setMessageTooltip('Мы все здесь умрем!!!.')
+        setIsPopupOpen(true);
       })
   }
 

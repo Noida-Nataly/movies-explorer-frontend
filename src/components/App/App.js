@@ -130,7 +130,7 @@ function App() {
   function filterMovies (searchRequest, moviesList, shortsToggle) {
     let searchRequestLower = searchRequest ? searchRequest.toLowerCase() : "";
     let filteredMovies = moviesList.filter(movie => {
-      return (searchRequestLower.length == 0 || (movie.nameRU.toLowerCase().includes(searchRequestLower) ||
+      return (searchRequestLower.length === 0 || (movie.nameRU.toLowerCase().includes(searchRequestLower) ||
         movie.nameEN.toLowerCase().includes(searchRequestLower))) && (!shortsToggle || movie.duration < 50);
     });
      return filteredMovies;

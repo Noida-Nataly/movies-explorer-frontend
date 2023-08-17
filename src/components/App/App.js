@@ -155,10 +155,10 @@ function App() {
   function handleSearchSavedByName(searchRequest, shortsToggle) {
     setSearchError('');
     if (allSavedMovies && allSavedMovies.length > 0) {
-      let pickedMovies = filterMovies(searchRequest, allSavedMovies, shortsToggle);
       if (!searchRequest || searchRequest.length === 0 ) {
         setSavedMovies(allSavedMovies);
       } else {
+        let pickedMovies = filterMovies(searchRequest, allSavedMovies, shortsToggle);
         if (pickedMovies.length === 0) {
           setSearchError('Ничего не найдено')
         }

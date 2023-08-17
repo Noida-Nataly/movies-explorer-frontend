@@ -34,7 +34,6 @@ function App() {
 
   useEffect(() => {
     getCurrentUser();
-    getBaseMovies();
     getSavedMovies();
   }, [])
 
@@ -59,6 +58,7 @@ function App() {
       .then((result) => {
         setIsSaved(true);
         setSavedMovies([result.data, ...savedMovies])
+        setAllSavedMovies([result.data, ...allSavedMovies])
       })
       .catch(()=> {
         setIsOk(false);
@@ -75,6 +75,7 @@ function App() {
       .then(() => {
         setIsSaved(false);
         setSavedMovies(savedMovies.filter(m => m._id !== savedMovie._id));
+        setAllSavedMovies(allSavedMovies.filter(m => m._id !== savedMovie._id));
         setIsLoading(false);
       })
       .catch(()=> {
@@ -142,6 +143,8 @@ function App() {
     return mainApi.getSavedMovies()
       .then(result => {
         setAllSavedMovies(result);
+        allMovies.forEach(movie => movie.isSaved = allSavedMovies.filter((m) => m.movieId === movies.id).length > 0);
+        movies.forEach(movie => movie.isSaved = allSavedMovies.filter((m) => m.movieId === movies.id).length > 0);
       })
       .catch(() => {
         setSearchError('Во время запроса произошла ошибка. ' +

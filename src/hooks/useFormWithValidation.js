@@ -10,7 +10,8 @@ export function useFormWithValidation({initialState}) {
     if (initialState) {
       setValues(initialState);
     }
-  }, [])
+  }, []);
+
   const handleChangeInput = (event) => {
     const target = event.target;
     const name = target.name;
@@ -18,6 +19,10 @@ export function useFormWithValidation({initialState}) {
     setValues({...values, [name]: value});
     setErrors({...errors, [name]: target.validationMessage });
     setIsValid(target.closest("form").checkValidity());
+    if (!values.email.match(/^\S+@\S+\.\S+$/)) {
+      setErrors({...errors, email: 'Текущий адрес электронной почты не валиден'});
+      setIsValid(false);
+    }
   };
 
   return { values, handleChangeInput, errors, setValues, isValid,setIsValid };

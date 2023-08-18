@@ -1,14 +1,27 @@
 import logo from '../../images/logo.svg';
 import {Link} from "react-router-dom";
-import React from "react";
+import React, {useEffect} from "react";
 import {useFormWithValidation} from "../../hooks/useFormWithValidation";
 
 
 export default function AuthForm ({isLogin, onSubmit}) {
 
-  const [isValid, setIsValid] = React.useState(false);
+  const [isValid, setIsValid] = React.useState(isLogin);
 
   const { values, handleChangeInput, errors } = useFormWithValidation({});
+
+  useEffect(() => {
+    if (values.email && !values.email.match(/^\S+@\S+\.\S+$/)) {
+      errors.email = 'Текущий адрес электронной почты не валиден';
+      setIsValid(false);
+    } else {
+      if (errors.email === 'Текущий адрес электронной почты не валиден') {
+        errors.email = null;
+      }
+    }
+    setIsValid((errors.email || errors.password || (!isLogin ? errors.name : false))
+      || (values.email.length === 0 || values.password.length === 0 || (!isLogin ? values.name.length === 0 : false)));
+  }, [values]);
 
   function onSubmitForm(evt) {
     evt.preventDefault();
@@ -20,7 +33,6 @@ export default function AuthForm ({isLogin, onSubmit}) {
 
   function handleChange(evt) {
     handleChangeInput(evt);
-    setIsValid(errors.email || errors.password || (isLogin ? errors.name : false));
   }
 
   return (
@@ -47,6 +59,7 @@ export default function AuthForm ({isLogin, onSubmit}) {
                   maxLength='100'
                   required
                   placeholder='имя'
+                  autoComplete="off"
                   onChange={handleChange}
                 />
                 {errors && errors.name ? <span>{errors.name}</span> : ""}
@@ -61,6 +74,7 @@ export default function AuthForm ({isLogin, onSubmit}) {
                 maxLength="100"
                 required
                 placeholder="e-mail"
+                autoComplete="off"
                 onChange={handleChange}
               />
               {errors && errors.email ? <span>{errors.email}</span> : ""}
@@ -76,7 +90,7 @@ export default function AuthForm ({isLogin, onSubmit}) {
                 required
                 placeholder="password"
                 onChange={handleChange}
-                autoComplete="true"
+                autoComplete="off"
               />
               {errors && errors.password ? <span>{errors.password}</span> : ""}
             </fieldset>

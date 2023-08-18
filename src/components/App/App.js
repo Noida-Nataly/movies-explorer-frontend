@@ -19,30 +19,37 @@ import {mainApi} from "../../utils/MainApi";
 import {movieApi} from "../../utils/MoviesApi";
 
 function App() {
+  const lastSearchedMovies = JSON.parse(localStorage.getItem('moviesLastSearched'));
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
-  const [movies, setMovies] = useState([]);
+
+  const [allMovies, setAllMovies] = useState([]);
+  const [allSavedMovies, setAllSavedMovies] = useState([]);
+  const [movies, setMovies] = useState(lastSearchedMovies || []);
   const [savedMovies, setSavedMovies] = useState([]);
   const [searchError, setSearchError] = useState('');
+
+  const [isLoading, setIsLoading] = useState(false);
   const [isOk,setIsOk] = useState(true);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [messageTooltip,setMessageTooltip] = useState('');
-  const [allMovies, setAllMovies] = useState([]);
-  const [allSavedMovies, setAllSavedMovies] = useState([]);
-
 
   useEffect(() => {
     getCurrentUser();
-    getSavedMovies();
+    getBaseMovies();
   }, [])
+
+  useEffect(() => {
+    localStorage.setItem('moviesLastSearched', JSON.stringify(movies));
+  }, [movies])
 
   // МЕТОДЫ РАБОТЫ С ФИЛЬМАМИ
 
   // Метод добавления фильма в сохраненные
   function handleSaveMovie(movie, setIsSaved) {
     let savedMovie = {
-      country: movie.country,
+      country: movie.country.length > 50 ? movie.country.substring(0,50) : movie.country,
       director: movie.director,
       duration: movie.duration,
       year: movie.year,
@@ -59,8 +66,6 @@ function App() {
         setIsSaved(true);
         setSavedMovies([result.data, ...savedMovies]);
         setAllSavedMovies([result.data, ...allSavedMovies]);
-        allMovies.forEach(movie => movie.isSaved = allSavedMovies.filter((m) => m.movieId === movie.id).length > 0);
-        movies.forEach(movie => movie.isSaved = allSavedMovies.filter((m) => m.movieId === movie.id).length > 0);
       })
       .catch(()=> {
         setIsOk(false);
@@ -79,8 +84,6 @@ function App() {
         setSavedMovies(savedMovies.filter(m => m._id !== savedMovie._id));
         setAllSavedMovies(allSavedMovies.filter(m => m._id !== savedMovie._id));
         setIsLoading(false);
-        allMovies.forEach(movie => movie.isSaved = allSavedMovies.filter((m) => m.movieId === movie.id).length > 0);
-        movies.forEach(movie => movie.isSaved = allSavedMovies.filter((m) => m.movieId === movie.id).length > 0);
       })
       .catch(()=> {
         setIsOk(false);
@@ -109,11 +112,11 @@ function App() {
     setSearchError('');
     if (!searchRequest || searchRequest.length === 0) {
       setMovies([]);
+      setSearchError('Строка поиска не должна быть пустой');
       return;
     }
     if (allMovies && allMovies.length > 0) {
       let pickedMovies = filterMovies(searchRequest, allMovies, shortsToggle);
-      pickedMovies.forEach(movie => movie.isSaved = allSavedMovies.filter((m) => m.movieId === movie.id).length > 0);
       if (pickedMovies.length === 0) {
         setSearchError('Ничего не найдено')
       }
@@ -122,7 +125,6 @@ function App() {
       getBaseMovies()
         .finally(() => {
           let pickedMovies = filterMovies(searchRequest, allMovies, shortsToggle);
-          pickedMovies.forEach(movie => movie.isSaved = allSavedMovies.filter((m) => m.movieId === movie.id).length > 0);
           if (pickedMovies.length === 0) {
             setSearchError('Ничего не найдено')
           }
@@ -136,7 +138,7 @@ function App() {
     let searchRequestLower = searchRequest ? searchRequest.toLowerCase() : "";
     let filteredMovies = moviesList.filter(movie => {
       return (searchRequestLower.length === 0 || (movie.nameRU.toLowerCase().includes(searchRequestLower) ||
-        movie.nameEN.toLowerCase().includes(searchRequestLower))) && (!shortsToggle || movie.duration < 50);
+        movie.nameEN.toLowerCase().includes(searchRequestLower))) && (!shortsToggle || movie.duration <= 40);
     });
      return filteredMovies;
   }
@@ -147,8 +149,7 @@ function App() {
     return mainApi.getSavedMovies()
       .then(result => {
         setAllSavedMovies(result);
-        allMovies.forEach(movie => movie.isSaved = allSavedMovies.filter((m) => m.movieId === movie.id).length > 0);
-        movies.forEach(movie => movie.isSaved = allSavedMovies.filter((m) => m.movieId === movie.id).length > 0);
+        setSavedMovies(result);
       })
       .catch(() => {
         setSearchError('Во время запроса произошла ошибка. ' +
@@ -161,6 +162,9 @@ function App() {
   // Метод поиска фильма в сохраненных
   function handleSearchSavedByName(searchRequest, shortsToggle) {
     setSearchError('');
+    if (!searchRequest || searchRequest.length === 0) {
+      setSearchError('Строка поиска не должна быть пустой');
+    }
     if (allSavedMovies && allSavedMovies.length > 0) {
       if ((!searchRequest || searchRequest.length === 0) && !shortsToggle) {
         setSavedMovies(allSavedMovies);
@@ -201,9 +205,7 @@ function App() {
         }
       })
       .catch(()=> {
-        setIsOk(false);
-        setMessageTooltip('Ошибка авторизации. Не удалось получить данные о текущем пользователе. Попробуйте еще раз.')
-        setIsPopupOpen(true);
+        console.log('Необходима авторизация');
       });
   }
 
@@ -255,6 +257,7 @@ function App() {
       .then(() => {
         setCurrentUser({});
         setIsLoggedIn(false);
+        localStorage.clear();
       })
       .catch(()=> {
         setIsOk(false);
@@ -289,6 +292,7 @@ function App() {
               />
               <ProtectedRouteElement element={Movies}
                                      movies={movies}
+                                     savedMovies={savedMovies}
                                      isLoading={isLoading}
                                      isLoggedIn={isLoggedIn}
                                      handleSaveMovie={handleSaveMovie}

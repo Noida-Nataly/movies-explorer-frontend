@@ -4,7 +4,7 @@ import useWindowSize from "../../hooks/useWindowSize";
 import {configAmountMovies} from "../../utils/constants";
 import {useEffect, useState} from "react";
 
-export default function MovieCardList ({movies, isSavedMovies, isLoading, handleSaveMovie, handleDeleteSavedMovie, searchError}) {
+export default function MovieCardList ({movies, savedMovies, isSavedMovies, isLoading, handleSaveMovie, handleDeleteSavedMovie, searchError}) {
   const width = useWindowSize();
   const [amountMovies, setAmountMovies] = useState(0);
   const [extraMovies, setExtraMovies] = useState(0);
@@ -44,6 +44,7 @@ export default function MovieCardList ({movies, isSavedMovies, isLoading, handle
                   <MovieCard
                     key={isSavedMovies ? movie._id : movie.id}
                     movie={movie}
+                    savedMovies={savedMovies}
                     isSavedMovies={isSavedMovies}
                     handleSaveMovie={handleSaveMovie}
                     handleDeleteSavedMovie={handleDeleteSavedMovie}

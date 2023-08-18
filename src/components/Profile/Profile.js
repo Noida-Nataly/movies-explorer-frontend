@@ -5,12 +5,25 @@ import {useFormWithValidation} from "../../hooks/useFormWithValidation";
 
 export default function Profile ({handleLogout, handleUpdateProfile}) {
   const currentUser = React.useContext(CurrentUserContext);
+  const [isValid, setIsValid] = React.useState(false);
 
-  const { values, handleChangeInput, errors, setValues, isValid, setIsValid } = useFormWithValidation(currentUser);
+  const { values, handleChangeInput, errors, setValues } = useFormWithValidation(currentUser);
 
   useEffect(() => {
-    setValues({name: currentUser.name, email: currentUser.email});
+    setValues({email: currentUser.email, name: currentUser.name});
   }, [])
+
+  useEffect(() => {
+    if (values.email && !values.email.match(/^\S+@\S+\.\S+$/)) {
+      errors.email = 'Текущий адрес электронной почты не валиден';
+      setIsValid(false);
+    } else {
+      if (errors.email === 'Текущий адрес электронной почты не валиден') {
+        errors.email = null;
+      }
+    }
+    setIsValid((errors.email || errors.name) || (values.email === currentUser.email && values.name === currentUser.name));
+  }, [values]);
 
   function onSubmitUpdateProfile(evt) {
     evt.preventDefault();
@@ -20,7 +33,6 @@ export default function Profile ({handleLogout, handleUpdateProfile}) {
 
   function handleChange(evt) {
     handleChangeInput(evt);
-    // setIsValid(errors.email || errors.name);
   }
 
   return (
@@ -54,13 +66,14 @@ export default function Profile ({handleLogout, handleUpdateProfile}) {
               maxLength='100'
               value={values.email}
               onChange={handleChange}
+              required
             />
           </fieldset>
           {errors && errors.email ? <div className="profile-form__label">{errors.email}</div> : ""}
           <span className="profile-form__error"></span>
           <button
-            className={"profile-form__button profile-form__edit-btn button" + (!isValid ? " button__disabled" : "") }
-            type ="submit" disabled={!isValid}>
+            className={"profile-form__button profile-form__edit-btn button" + (isValid ? " button__disabled" : "") }
+            type ="submit" disabled={isValid}>
             Редактировать
           </button>
           <Link

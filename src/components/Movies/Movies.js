@@ -5,6 +5,7 @@ import React from "react";
 
 export default function Movies ({
                                   movies,
+                                  savedMovies,
                                   isLoading,
                                   handleSaveMovie,
                                   handleDeleteSavedMovie,
@@ -20,6 +21,7 @@ export default function Movies ({
       />
       <MovieCardList
         movies={movies}
+        savedMovies={savedMovies}
         isSavedMovies={false}
         isLoading={isLoading}
         handleSaveMovie={handleSaveMovie}

@@ -1,36 +1,25 @@
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import Magnifier from "../../images/magnifier.svg";
 import {useEffect, useState} from "react";
-import {useLocation} from "react-router-dom";
 
 export default function SearchForm ({handleSearchByName, isSavedMovies}) {
-    const [searchQuery, setSearchQuery] =useState('');
-    const [shortsToggle, setShortsToggle] =useState(false);
-    let location = useLocation();
+    const prevRequestAll = localStorage.getItem('moviesSearchQuery') ? localStorage.getItem('moviesSearchQuery') : '';
+    const prevToggleAll = localStorage.getItem('moviesShortsToggle') ? localStorage.getItem('moviesShortsToggle') === "true" : false;
+
+    const [searchQuery, setSearchQuery] = useState(isSavedMovies ? '' : prevRequestAll);
+    const [shortsToggle, setShortsToggle] = useState(isSavedMovies ? false : prevToggleAll);
 
     useEffect(() => {
-        let prevRequest, prevToggle;
         if (isSavedMovies) {
-            prevRequest = localStorage.getItem('savedMoviesSearchQuery');
-            prevToggle = localStorage.getItem('savedMoviesShortsToggle');
-        } else {
-            prevRequest = localStorage.getItem('moviesSearchQuery');
-            prevToggle = localStorage.getItem('moviesShortsToggle');
+            handleSearchByName(searchQuery, shortsToggle);
         }
-        setSearchQuery(prevRequest ? prevRequest : '');
-        setShortsToggle(prevToggle ? prevToggle === "true" : false);
-        if ((location.pathname === '/saved-movies' && isSavedMovies)
-          || (location.pathname === '/movies' && !isSavedMovies)) {
-            handleSearchByName(prevRequest, prevToggle === "true");
-        }
-    }, [location])
+    }, []);
 
     function handleSearch(evt) {
         evt.preventDefault();
-        if (isSavedMovies) {
-            localStorage.setItem('savedMoviesSearchQuery', searchQuery);
-        } else {
+        if (!isSavedMovies) {
             localStorage.setItem('moviesSearchQuery', searchQuery);
+            localStorage.setItem('moviesShortsToggle', shortsToggle);
         }
         handleSearchByName(searchQuery, shortsToggle);
     }
@@ -42,9 +31,8 @@ export default function SearchForm ({handleSearchByName, isSavedMovies}) {
     }
 
     function handleShortsToggle(evt) {
-        if (isSavedMovies) {
-            localStorage.setItem('savedMoviesShortsToggle', evt.target.checked);
-        } else {
+        if (!isSavedMovies) {
+            localStorage.setItem('moviesSearchQuery', searchQuery);
             localStorage.setItem('moviesShortsToggle', evt.target.checked);
         }
         setShortsToggle(evt.target.checked);

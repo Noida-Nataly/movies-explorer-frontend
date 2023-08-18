@@ -1,8 +1,8 @@
 import {Link} from "react-router-dom";
 import {useState} from "react";
 
-export default function MovieCard ({movie, isSavedMovies, handleSaveMovie, handleDeleteSavedMovie}) {
-  const [isSaved, setIsSaved] = useState(movie.isSaved);
+export default function MovieCard ({movie, savedMovies, isSavedMovies, handleSaveMovie, handleDeleteSavedMovie}) {
+  const [isSaved, setIsSaved] = useState(isSavedMovies || savedMovies.filter(m => m.movieId === movie.id).length > 0);
 
   const saveClassName = `movies__save-button ${
     isSaved ? 'movies__save-button_state-active ' : ''} ${

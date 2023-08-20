@@ -32,6 +32,9 @@ export default function MovieCardList ({movies, savedMovies, isSavedMovies, isLo
     amountMoviesOnScreen();
   }, [width]);
 
+  useEffect(() => {
+    amountMoviesOnScreen();
+  }, [movies])
 
   return (
       <section className="movies">

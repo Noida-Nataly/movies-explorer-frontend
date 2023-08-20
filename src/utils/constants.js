@@ -1,7 +1,9 @@
-export const mainApiUrl = 'https://api.movies-collections.nomoredomains.xyz';
-// export const mainApiUrl = 'http://localhost:3000';
+//export const mainApiUrl = 'https://api.movies-collections.nomoredomains.xyz';
+export const mainApiUrl = 'http://localhost:3000';
 export const moviesApiUrl = 'https://api.nomoreparties.co/beatfilm-movies';
 export const moviesImagesUrl = 'https://api.nomoreparties.co';
+
+export const shortsDurationLimit = 40;
 
 export const configAmountMovies = {
   DESKTOP: 1280,

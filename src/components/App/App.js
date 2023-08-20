@@ -17,6 +17,7 @@ import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import {CurrentUserContext} from "../../contexts/CurrentUserContext";
 import {mainApi} from "../../utils/MainApi";
 import {movieApi} from "../../utils/MoviesApi";
+import {shortsDurationLimit} from "../../utils/constants";
 
 function App() {
   const lastSearchedMovies = JSON.parse(localStorage.getItem('moviesLastSearched'));
@@ -50,7 +51,7 @@ function App() {
   function handleSaveMovie(movie, setIsSaved) {
     let savedMovie = {
       country: movie.country.length > 50 ? movie.country.substring(0,50) : movie.country,
-      director: movie.director,
+      director: movie.director.length > 50 ? movie.director.substring(0,50) : movie.director,
       duration: movie.duration,
       year: movie.year,
       description: movie.description.length > 300 ? movie.description.substring(0,300) : movie.description,
@@ -76,14 +77,12 @@ function App() {
 
   // Метод удаления фильма из сохраненных
   function handleDeleteSavedMovie(movieId, setIsSaved) {
-    setIsLoading(true);
     let savedMovie = savedMovies.filter(m => m.movieId === movieId)[0];
     mainApi.deleteSavedMovie(savedMovie._id)
       .then(() => {
         setIsSaved(false);
         setSavedMovies(savedMovies.filter(m => m._id !== savedMovie._id));
         setAllSavedMovies(allSavedMovies.filter(m => m._id !== savedMovie._id));
-        setIsLoading(false);
       })
       .catch(()=> {
         setIsOk(false);
@@ -138,7 +137,7 @@ function App() {
     let searchRequestLower = searchRequest ? searchRequest.toLowerCase() : "";
     let filteredMovies = moviesList.filter(movie => {
       return (searchRequestLower.length === 0 || (movie.nameRU.toLowerCase().includes(searchRequestLower) ||
-        movie.nameEN.toLowerCase().includes(searchRequestLower))) && (!shortsToggle || movie.duration <= 40);
+        movie.nameEN.toLowerCase().includes(searchRequestLower))) && (!shortsToggle || movie.duration <= shortsDurationLimit);
     });
      return filteredMovies;
   }

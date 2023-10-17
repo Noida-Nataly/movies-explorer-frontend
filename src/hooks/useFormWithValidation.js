@@ -1,0 +1,29 @@
+import React, {useEffect} from "react";
+
+//хук управления формой и валидации формы
+export function useFormWithValidation({initialState}) {
+  const [values, setValues] = React.useState({password: '', name: '', email: ''});
+  const [errors, setErrors] = React.useState({});
+  const [isValid, setIsValid] = React.useState(false);
+
+  useEffect(() => {
+    if (initialState) {
+      setValues(initialState);
+    }
+  }, []);
+
+  const handleChangeInput = (event) => {
+    const target = event.target;
+    const name = target.name;
+    const value = target.value;
+    setValues({...values, [name]: value});
+    setErrors({...errors, [name]: target.validationMessage });
+    setIsValid(target.closest("form").checkValidity());
+    if (!values.email.match(/^\S+@\S+\.\S+$/)) {
+      setErrors({...errors, email: 'Текущий адрес электронной почты не валиден'});
+      setIsValid(false);
+    }
+  };
+
+  return { values, handleChangeInput, errors, setValues, isValid,setIsValid };
+}

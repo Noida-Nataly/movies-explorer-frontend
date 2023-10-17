@@ -1,16 +1,28 @@
 import SearchForm from "../SearchForm/SearchForm";
 import MovieCardList from "../MovieCardList/MovieCardList";
 import React from "react";
-import {savedMovies} from "../../utils/movies_data";
+export default function SavedMovies ({
+                                       savedMovies,
+                                       isLoading,
+                                       handleSaveMovie,
+                                       handleDeleteSavedMovie,
+                                       handleSearchByName,
+                                       searchError}) {
 
-export default function SavedMovies ({}) {
 
   return (
     <main className="content">
-      <SearchForm />
+      <SearchForm
+        handleSearchByName={handleSearchByName}
+        isSavedMovies={true}
+      />
       <MovieCardList
         movies={savedMovies}
         isSavedMovies={true}
+        isLoading={isLoading}
+        handleSaveMovie={handleSaveMovie}
+        handleDeleteSavedMovie={handleDeleteSavedMovie}
+        searchError={searchError}
       />
     </main>
   )

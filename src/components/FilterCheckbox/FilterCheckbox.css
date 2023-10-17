@@ -31,7 +31,7 @@
 }
 
 .filter-checkbox__toggle-span:before {
-    background-color: #3DDC84;
+    background-color: #ffffff;
     content: '';
     position: absolute;
     height: 16px;
@@ -48,6 +48,7 @@
 
 .filter-checkbox__toggle:checked + .filter-checkbox__toggle-span:before {
     transform: translateX(16px);
+    background-color: #3DDC84;
 }
 
 @media screen and (max-width: 769px) {

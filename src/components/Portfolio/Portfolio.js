@@ -10,7 +10,7 @@ export default function Portfolio ({}) {
                     <Link
                           className="portfolio__link-name link"
                           target = "_blank"
-                          to="https://github.com/Noida-Nataly/how-to-learn">
+                          to="https://noida-nataly.github.io/how-to-learn/">
                         Статичный сайт
                     </Link>
                 </li>
@@ -18,7 +18,7 @@ export default function Portfolio ({}) {
                     <Link
                       className="portfolio__link-name link"
                       target = "_blank"
-                      to="https://github.com/Noida-Nataly/russian-travel" >
+                      to="https://noida-nataly.github.io/russian-travel/" >
                         Адаптивный сайт
                     </Link>
                 </li>
@@ -26,7 +26,7 @@ export default function Portfolio ({}) {
                     <Link
                       className="portfolio__link-name link"
                       target = "_blank"
-                      to="https://github.com/Noida-Nataly/react-mesto-api-full-gha">
+                      to="https://mesto-nataly.nomoredomains.work/">
                         Одностраничное приложение
                     </Link>
 
